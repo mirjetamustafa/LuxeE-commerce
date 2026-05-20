@@ -1,24 +1,24 @@
-import Button from './components/ui/Button'
+import Input from './components/ui/Input'
+import { Search } from 'lucide-react'
 
 const App = () => {
   return (
     <div className="flex gap-5 p-5">
-      <Button variant="primary" size="medium">
-        Primary Button
-      </Button>
-      <Button variant="secondary" size="medium">
-        Secondary Button
-      </Button>
-      <Button variant="default" size="large">
-        Default Button
-      </Button>
+      <Input label="Email" type="email" placeholder="Enter your email" />
 
-      <Button variant="blur" size="medium">
-        Blur Button
-      </Button>
-      <Button variant="ghost" size="small">
-        Gho
-      </Button>
+      <Input
+        label="Password"
+        type="password"
+        placeholder="Enter your password"
+      />
+
+      <Input
+        type="search"
+        placeholder="Search products..."
+        icon={<Search size={18} />}
+      />
+
+      <Input label="City" type="name" placeholder="Enter your city" />
     </div>
   )
 }

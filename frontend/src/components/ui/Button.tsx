@@ -11,7 +11,7 @@ const Button = ({
   size?: 'small' | 'medium' | 'large'
 }) => {
   const baseClasses =
-    'focus:outline-none focus:ring-2 focus:ring-[#D4A853] focus:ring-offset-2 rounded transition-colors cursor-pointer duration-200'
+    'focus:outline-none focus:ring-2 focus:ring-[#D4A853] focus:ring-offset-2 transition-colors cursor-pointer duration-200'
   const variantClasses = clsx({
     'bg-[#D4A853] text-white hover:bg-[#C09A4A]': variant === 'primary',
     'bg-white text-gray-800 border border-gray-300 hover:bg-black hover:bg-black hover:text-white':
