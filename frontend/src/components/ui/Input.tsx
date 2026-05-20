@@ -1,12 +1,15 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useState } from 'react'
 import clsx from 'clsx'
+import { Eye, EyeOff } from 'lucide-react'
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string
   error?: string
   variant?: 'default' | 'outline'
   inputSize?: 'sm' | 'md' | 'lg'
-  icon?: React.ReactNode
+  leftIcon?: React.ReactNode
+  rightIcon?: React.ReactNode
+  isLoading?: boolean
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -16,13 +19,20 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       error,
       variant = 'default',
       inputSize = 'md',
-      icon,
+      leftIcon,
+      rightIcon,
+      isLoading = false,
+      type,
       className,
       id,
       ...props
     },
     ref,
   ) => {
+    const [showPassword, setShowPassword] = useState(false)
+
+    const isPassword = type === 'password'
+
     const baseClasses =
       'w-full rounded-md border transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed'
 
@@ -42,6 +52,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className="w-full">
+        {/* LABEL */}
         {label && (
           <label
             htmlFor={id}
@@ -51,28 +62,60 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           </label>
         )}
 
+        {/* INPUT WRAPPER */}
         <div className="relative">
-          {icon && (
+          {/* LEFT ICON */}
+          {leftIcon && (
             <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-              {icon}
+              {leftIcon}
             </div>
           )}
 
+          {/* INPUT */}
           <input
             ref={ref}
             id={id}
+            type={isPassword ? (showPassword ? 'text' : 'password') : type}
+            disabled={isLoading}
             className={clsx(
               baseClasses,
               variantClasses,
               sizeClasses,
-              icon && 'pl-10', // 👉 hap vend për icon
+              leftIcon && 'pl-10',
+              (rightIcon || isPassword) && 'pr-10',
               error && 'border-red-500 focus:border-red-500 focus:ring-red-200',
               className,
             )}
             {...props}
           />
+
+          {/* RIGHT ICON / PASSWORD TOGGLE */}
+          {(rightIcon || isPassword) && (
+            <div
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer"
+              onClick={() => isPassword && setShowPassword(!showPassword)}
+            >
+              {isPassword ? (
+                showPassword ? (
+                  <EyeOff size={18} />
+                ) : (
+                  <Eye size={18} />
+                )
+              ) : (
+                rightIcon
+              )}
+            </div>
+          )}
+
+          {/* LOADING STATE */}
+          {isLoading && (
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+              Loading...
+            </div>
+          )}
         </div>
 
+        {/* ERROR */}
         {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
       </div>
     )

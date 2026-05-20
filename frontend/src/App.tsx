@@ -3,7 +3,7 @@ import { Search } from 'lucide-react'
 
 const App = () => {
   return (
-    <div className="flex gap-5 p-5">
+    <div className="grid grid-cols-2 gap-5 p-5">
       <Input label="Email" type="email" placeholder="Enter your email" />
 
       <Input
@@ -15,7 +15,7 @@ const App = () => {
       <Input
         type="search"
         placeholder="Search products..."
-        icon={<Search size={18} />}
+        leftIcon={<Search size={18} />}
       />
 
       <Input label="City" type="name" placeholder="Enter your city" />
