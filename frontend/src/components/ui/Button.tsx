@@ -24,7 +24,7 @@ const Button = ({
   const sizeClasses = clsx({
     'px-4 py-2 text-sm': size === 'small',
     'px-6 py-3 text-base': size === 'medium',
-    'px-8 py-4 text-lg': size === 'large',
+    'px-6 py-3 w-full text-base': size === 'large',
   })
 
   return (
