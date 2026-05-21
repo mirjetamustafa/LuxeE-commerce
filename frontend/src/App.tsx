@@ -5,6 +5,7 @@ import Button from './components/ui/Button'
 import Select from './components/ui/Select'
 import Checkboxes from './components/ui/Checkboxes'
 import React from 'react'
+import PriceRange from './components/ui/PriceRange'
 
 const App = () => {
   const [checked, setChecked] = React.useState(false)
@@ -42,6 +43,8 @@ const App = () => {
           checked={checked}
           onChange={() => setChecked(!checked)}
         />
+
+        <PriceRange min={0} max={500} onChange={() => {}} />
 
         <Textarea
           label="Description"
