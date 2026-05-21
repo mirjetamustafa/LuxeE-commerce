@@ -3,8 +3,11 @@ import { Search } from 'lucide-react'
 import Textarea from './components/ui/Textarea'
 import Button from './components/ui/Button'
 import Select from './components/ui/Select'
+import Checkboxes from './components/ui/Checkboxes'
+import React from 'react'
 
 const App = () => {
+  const [checked, setChecked] = React.useState(false)
   return (
     <form className="w-full">
       <div className="grid grid-cols-1 gap-5 p-5">
@@ -32,6 +35,14 @@ const App = () => {
           ]}
           onChange={() => {}}
         />
+
+        <Checkboxes
+          id="electronics"
+          label="Electronics"
+          checked={checked}
+          onChange={() => setChecked(!checked)}
+        />
+
         <Textarea
           label="Description"
           placeholder="Enter a description"
