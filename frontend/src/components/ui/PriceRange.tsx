@@ -32,7 +32,6 @@ const PriceRange: React.FC<PriceRangeProps> = ({ min, max, onChange }) => {
         max={max}
         value={value}
         onChange={handleChange}
-        className=""
       />
     </div>
   )
