@@ -2,7 +2,7 @@ import { Clock, RefreshCcw, ShieldCheck, Truck } from 'lucide-react'
 
 const ServiceFeatures = () => {
   return (
-    <div className="bg-gray-100  border-gray-200 mb-5 px-9 bg-offwhite py-12 border-b">
+    <div className="bg-[#F9F9F9]  border-gray-200 mb-5 px-9 py-12 border-b">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 py-8">
         <div className="flex flex-col items-center">
           <Truck className="w-8 h-8 mb-2 text-[#D4A853]" />
