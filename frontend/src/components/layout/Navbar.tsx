@@ -29,7 +29,9 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 py-2 flex items-center justify-between md:justify-around">
         {/* Mobile Menu Button */}
-        <div className="text-gray-800 hover:text-[#D4A853] cursor-pointer duration-200 mt-2 md:hidden block">
+        <div
+          className={`hover:text-[#D4A853] cursor-pointer duration-200 mt-2 md:hidden block ${isScrolled ? 'text-gray-800' : 'text-gray-200'}`}
+        >
           <button onClick={toggleMobileMenu} className="cursor-pointer">
             <Menu className="w-6 h-6" />
           </button>

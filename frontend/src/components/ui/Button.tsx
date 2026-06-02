@@ -17,14 +17,14 @@ const Button = ({
     'bg-white text-gray-800 border border-gray-300 hover:bg-black hover:bg-black hover:text-white':
       variant === 'secondary',
     'bg-black text-white  hover:bg-[#D4A853]': variant === 'default',
-    'bg-transparent border border-gray-300 text-gray-800  hover:bg-[#E0E0E0]':
+    'bg-white/10 border border-white/20 text-white backdrop-blur-xs hover:bg-white/20 transition-all duration-300':
       variant === 'blur',
     'bg-white text-gray-800  hover:bg-gray-100': variant === 'ghost',
   })
   const sizeClasses = clsx({
     'px-4 py-2 text-sm': size === 'small',
     'px-6 py-3 text-base': size === 'medium',
-    'px-6 py-3 w-full text-base': size === 'large',
+    'px-6 py-3 w-full text-xl': size === 'large',
   })
 
   return (
