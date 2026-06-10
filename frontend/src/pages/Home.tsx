@@ -3,6 +3,7 @@ import React from 'react'
 import HeroSection from '../components/home/HeroSection'
 import ServiceFeatures from '../components/home/ServiceFeatures'
 import ShopByCategory from '../components/home/ShopByCategory'
+import FeaturedEssentials from '../components/home/FeaturedEssentials'
 
 const Home: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const Home: React.FC = () => {
       <HeroSection />
       <ServiceFeatures />
       <ShopByCategory />
+      <FeaturedEssentials />
     </>
   )
 }
