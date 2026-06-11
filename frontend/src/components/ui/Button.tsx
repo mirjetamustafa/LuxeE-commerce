@@ -19,7 +19,7 @@ const Button = ({
     'bg-black text-white  hover:bg-[#D4A853]': variant === 'default',
     'bg-white/10 border border-white/20 text-white backdrop-blur-xs hover:bg-white/20 transition-all duration-300':
       variant === 'blur',
-    'bg-white text-gray-800  hover:bg-gray-100': variant === 'ghost',
+    'bg-white text-gray-800  hover:bg-gray-100 shadow-md': variant === 'ghost',
   })
   const sizeClasses = clsx({
     'px-4 py-2 text-sm': size === 'small',
