@@ -11,6 +11,8 @@ import product19 from '../../assets/products/product19.jfif'
 import product20 from '../../assets/products/product20.jfif'
 import product26 from '../../assets/products/product26.jfif'
 import product27 from '../../assets/products/product27.jfif'
+import Button from '../ui/Button'
+import { Link } from 'react-router-dom'
 
 const FeaturedEssentials = () => {
   const products = [
@@ -93,6 +95,11 @@ const FeaturedEssentials = () => {
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
+      <Link to="/shop">
+        <Button variant="secondary" size="medium">
+          View All Products
+        </Button>
+      </Link>
     </div>
   )
 }
