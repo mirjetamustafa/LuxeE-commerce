@@ -39,7 +39,7 @@ const OurCustomers = () => {
       <p className="text-[#333333]">Don't just take our word for it.</p>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 py-9 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 py-9 gap-9">
           {customer.map((client) => (
             <div className="bg-white shadow-xs p-9">
               <div className="flex gap-2 mb-5">
