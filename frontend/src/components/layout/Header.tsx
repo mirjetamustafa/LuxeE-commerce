@@ -3,7 +3,7 @@ import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import Sidebar from './Sidebar'
 
-const Navbar = () => {
+const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
 
   const [isScrolled, setIsScrolled] = React.useState(false)
@@ -20,24 +20,21 @@ const Navbar = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
+
   return (
     <nav
-      className={`fixed  top-0 left-0 w-full z-50 transition-colors duration-300
-      ${isScrolled ? 'bg-white/90 backdrop-blur-sm shadow-md text-gray-800' : 'bg-transparent text-white'}`}
+      className={`fixed  top-0 left-0 py-1 w-full transition-all duration-200 
+       ${isScrolled ? 'shadow-sm bg-white/97 ' : 'bg-transparent'} text-gray-800`}
     >
       <div className="container mx-auto px-4 py-2 flex items-center justify-between md:justify-around">
         {/* Mobile Menu Button */}
-        <div
-          className={`hover:text-[#D4A853] cursor-pointer duration-200 mt-2 md:hidden block ${isScrolled ? 'text-gray-800' : 'text-gray-200'}`}
-        >
+        <div className="hover:text-[#D4A853] cursor-pointer duration-200 mt-2 md:hidden block  text-gray-800 ">
           <button onClick={toggleMobileMenu} className="cursor-pointer">
             <Menu className="w-6 h-6" />
           </button>
         </div>
         {/* Logo */}
-        <div
-          className={`text-2xl font-bold font-playfair uppercase ${isScrolled ? 'text-gray-800' : 'text-gray-200'}`}
-        >
+        <div className="text-2xl font-bold font-playfair uppercase text-gray-800">
           <Link to="/">
             Luxe<span className="text-[#D4A853]">.</span>
           </Link>
@@ -47,11 +44,7 @@ const Navbar = () => {
             to="/"
             className={({ isActive }) =>
               `font-medium hover:text-[#D4A853] duration-300 ${
-                isActive
-                  ? 'text-[#D4A853]'
-                  : isScrolled
-                    ? 'text-gray-600'
-                    : 'text-gray-200'
+                isActive ? 'text-[#D4A853]' : 'text-gray-600'
               }`
             }
           >
@@ -61,11 +54,7 @@ const Navbar = () => {
             to="/shop"
             className={({ isActive }) =>
               `font-medium hover:text-[#D4A853] duration-300 ${
-                isActive
-                  ? 'text-[#D4A853]'
-                  : isScrolled
-                    ? 'text-gray-600'
-                    : 'text-gray-200'
+                isActive ? 'text-[#D4A853]' : 'text-gray-600'
               }`
             }
           >
@@ -75,11 +64,7 @@ const Navbar = () => {
             to="/about"
             className={({ isActive }) =>
               `font-medium hover:text-[#D4A853] duration-300 ${
-                isActive
-                  ? 'text-[#D4A853]'
-                  : isScrolled
-                    ? 'text-gray-600'
-                    : 'text-gray-200'
+                isActive ? 'text-[#D4A853]' : 'text-gray-600'
               }`
             }
           >
@@ -89,11 +74,7 @@ const Navbar = () => {
             to="/contact"
             className={({ isActive }) =>
               `font-medium hover:text-[#D4A853] duration-300 ${
-                isActive
-                  ? 'text-[#D4A853]'
-                  : isScrolled
-                    ? 'text-gray-600'
-                    : 'text-gray-200'
+                isActive ? 'text-[#D4A853]' : 'text-gray-600'
               }`
             }
           >
@@ -101,18 +82,10 @@ const Navbar = () => {
           </NavLink>
         </div>
         <div className="flex items-center space-x-9">
-          <Search
-            className={`hidden md:flex hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
-          />
-          <User
-            className={`hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
-          />
-          <Heart
-            className={`hidden md:flex hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
-          />
-          <ShoppingCart
-            className={`hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
-          />
+          <Search className="hidden md:flex hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
+          <User className="hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
+          <Heart className="hidden md:flex hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
+          <ShoppingCart className="hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
         </div>
       </div>
 
@@ -139,4 +112,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default Header
