@@ -5,6 +5,7 @@ import ServiceFeatures from '../components/home/ServiceFeatures'
 import ShopByCategory from '../components/home/ShopByCategory'
 import FeaturedEssentials from '../components/home/FeaturedEssentials'
 import LimitedOffer from '../components/home/LimitedOffer'
+import OurCustomers from '../components/home/OurCustomers'
 
 const Home: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const Home: React.FC = () => {
       <ShopByCategory />
       <FeaturedEssentials />
       <LimitedOffer />
+      <OurCustomers />
     </>
   )
 }
