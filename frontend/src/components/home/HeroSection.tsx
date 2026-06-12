@@ -21,14 +21,14 @@ const HeroSection = () => {
           Discover our curated selection of thoughtfully designed products that
           blend form, function, and uncompromising quality.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full max-w-sm">
+        <div className="grid grid-cols-1 md:grid-cols-2 w-full max-w-sm gap-4">
           <Link to="/products">
-            <Button variant="primary" size="large">
+            <Button variant="primary" size="large" fullWidth>
               Shop Now
             </Button>
           </Link>
           <Link to="/products">
-            <Button variant="blur" size="large">
+            <Button variant="blur" size="large" fullWidth>
               Our Story
             </Button>
           </Link>
