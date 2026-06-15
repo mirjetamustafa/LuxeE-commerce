@@ -4,24 +4,27 @@ import React from 'react'
 interface PriceRangeProps {
   min: number
   max: number
+  value: number
   onChange: (value: number) => void
 }
 
-const PriceRange: React.FC<PriceRangeProps> = ({ min, max, onChange }) => {
-  const [value, setValue] = React.useState(min)
+const PriceRange: React.FC<PriceRangeProps> = ({
+  min,
+  max,
+  value,
+  onChange,
+}) => {
+  // const [value, setValue] = React.useState(min)
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = Number(event.target.value)
-    setValue(newValue)
-    onChange(newValue)
-  }
+  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const newValue = Number(event.target.value)
+  //   setValue(newValue)
+  //   onChange(newValue)
+  // }
 
   return (
     <div className="w-50">
-      <label
-        htmlFor="price-range"
-        className="mb-2 flex justify-between text-sm font-medium text-gray-700"
-      >
+      <label className="mb-2 flex justify-between text-sm font-medium text-gray-700">
         <span>$0</span>
         <span>${value}</span>
       </label>
@@ -31,7 +34,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({ min, max, onChange }) => {
         min={min}
         max={max}
         value={value}
-        onChange={handleChange}
+        onChange={(e) => onChange(Number(e.target.value))}
       />
     </div>
   )
