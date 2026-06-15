@@ -28,7 +28,7 @@ const Checkboxes: React.FC<CheckboxesProps> = ({
       {/* custom checkbox */}
       <div
         className={clsx(
-          'relative h-5 w-5 border rounded-xs transition-all duration-200',
+          'relative h-4 w-4 border rounded-xs transition-all duration-200',
           checked ? 'border-[#D4A853]' : 'border-gray-300 bg-white',
         )}
       >
