@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import Checkboxes from '../ui/Checkboxes'
 import PriceRange from '../ui/PriceRange'
+import RatingFilter from '../ui/RatingFilter'
 
 const Filters = () => {
   const [categories, setCategories] = useState<string[]>([])
   const [maxPrice, setMaxPrice] = useState(500)
+  const [selectedRating, setSelectedRating] = useState<number | null>(null)
 
   const handleCategoryChange = (category: string) => {
     setCategories((prev) =>
@@ -49,7 +51,7 @@ const Filters = () => {
           <Checkboxes
             id="home&living"
             label="Home & Living"
-            checked={categories.includes('CloHome & Livingthig')}
+            checked={categories.includes('Home & Living')}
             onChange={() => handleCategoryChange('Home & Living')}
           />
           <Checkboxes
@@ -66,6 +68,25 @@ const Filters = () => {
           price range
         </h4>
         <PriceRange min={0} max={500} value={maxPrice} onChange={setMaxPrice} />
+      </div>
+      <div className="">
+        <h4 className="text-medium text-sm font-playfair text-[#1a1a1a] uppercase mb-3">
+          minimum rating
+        </h4>
+        <RatingFilter value={selectedRating} onChange={setSelectedRating} />
+      </div>
+      <div className="mt-9">
+        <h4 className="text-medium text-sm font-playfair text-[#1a1a1a] uppercase mb-3">
+          availability
+        </h4>
+        <div className="space-y-3">
+          <Checkboxes
+            id="inStockOnly"
+            label="In Stock Only"
+            checked={categories.includes('In Stock Only')}
+            onChange={() => handleCategoryChange('In Stock Only')}
+          />
+        </div>
       </div>
     </div>
   )

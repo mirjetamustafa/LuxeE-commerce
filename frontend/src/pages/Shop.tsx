@@ -6,7 +6,7 @@ const Shop = () => {
     <div className="mt-20">
       <ShopHeroSection />
       <div className="flex items-center max-w-7xl mx-auto gap-5">
-        <div className="w-100 ">
+        <div className="w-100 my-9">
           <Filters />
         </div>
         <div className="w-full shrink bg-red-200">02</div>
