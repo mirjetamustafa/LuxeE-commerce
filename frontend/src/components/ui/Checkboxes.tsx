@@ -42,7 +42,14 @@ const Checkboxes: React.FC<CheckboxesProps> = ({
       </div>
 
       {/* label */}
-      <span className="text-sm text-gray-700">{label}</span>
+      <span
+        className={clsx(
+          'text-sm text-gray-700',
+          checked ? ' font-medium ' : 'font-normal',
+        )}
+      >
+        {label}
+      </span>
     </label>
   )
 }
