@@ -5,7 +5,7 @@ import { Eye, EyeOff } from 'lucide-react'
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string
   error?: string
-  variant?: 'default' | 'outline' | 'products'
+  variant?: 'default' | 'outline' | 'products' | 'login'
   inputSize?: 'sm' | 'md' | 'lg'
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
@@ -37,8 +37,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       'w-full rounded-md border transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed'
 
     const variantClasses = clsx({
-      'border-gray-500 focus:border-[#D4A853] focus:ring-2 focus:ring-[#D4A853]/30':
+      'border-gray-200 bg-gray-100 focus:border-[#D4A853] focus:ring-2 focus:ring-[#D4A853]/30':
         variant === 'default',
+
+      'border-gray-200 rounded-none focus:border-[#D4A853] focus:ring-2 focus:ring-[#D4A853]/30':
+        variant === 'login',
 
       'border-2 border-black focus:border-[#D4A853] focus:ring-2 focus:ring-[#D4A853]/20':
         variant === 'outline',
@@ -50,7 +53,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const sizeClasses = clsx({
       'px-3 py-2 text-sm': inputSize === 'sm',
       'px-7 py-2 text-base': inputSize === 'md',
-      'px-5 py-4 text-lg': inputSize === 'lg',
+      'px-5 py-3 text-base': inputSize === 'lg',
     })
 
     return (
