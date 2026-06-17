@@ -81,8 +81,10 @@ const Sidebar = ({ toggleMobileMenu }: { toggleMobileMenu: () => void }) => {
       <div className="mt-auto border-t  border-gray-200 bg-gray-50 p-4">
         <div className="flex justify-around">
           <p className="flex flex-col items-center font-semibold text-gray-600 hover:text-[#D4A853] cursor-pointer ">
-            <User className="w-5 h-5" />
-            <span className="text-xs">Account</span>
+            <NavLink to="/login">
+              <User className="w-5 h-5" />
+              <span className="text-xs">Account</span>
+            </NavLink>
           </p>
           <p className="flex flex-col items-center font-semibold text-gray-600 hover:text-[#D4A853] cursor-pointer">
             <Heart className="w-5 h-5" />

@@ -83,7 +83,9 @@ const Header = () => {
         </div>
         <div className="flex items-center space-x-9">
           <Search className="hidden md:flex hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
-          <User className="hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
+          <NavLink to="/login">
+            <User className="hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
+          </NavLink>
           <Heart className="hidden md:flex hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
           <ShoppingCart className="hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
         </div>

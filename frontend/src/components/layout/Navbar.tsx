@@ -104,6 +104,7 @@ const Navbar = () => {
           <Search
             className={`hidden md:flex hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
           />
+          <NavLink to="/login"></NavLink>
           <User
             className={`hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
           />
