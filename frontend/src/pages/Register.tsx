@@ -15,6 +15,8 @@ const initialForm: RegisterInput = {
 const Register = () => {
   const [formData, setFormData] = useState(initialForm)
 
+  const navigate = useNavigate()
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
@@ -30,6 +32,8 @@ const Register = () => {
       localStorage.setItem('token', response.token)
       console.log('User created:', response)
       toast.success('User register successfully!')
+
+      navigate('/login')
       setFormData(initialForm)
     } catch (error) {
       console.error(error)
