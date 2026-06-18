@@ -1,8 +1,41 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import Input from '../components/ui/Input'
 import Button from '../components/ui/Button'
+import { useState } from 'react'
+import { registerUser } from '../api/User/user'
+import type { RegisterInput } from '../api/User/user.types'
+import { toast } from 'react-toastify'
+
+const initialForm: RegisterInput = {
+  name: '',
+  email: '',
+  password: '',
+}
 
 const Register = () => {
+  const [formData, setFormData] = useState(initialForm)
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    try {
+      const response = await registerUser(formData)
+      localStorage.setItem('token', response.token)
+      console.log('User created:', response)
+      toast.success('User register successfully!')
+      setFormData(initialForm)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#F9F9F9]">
       <div className="bg-white shadow-sm p-8 w-full max-w-md">
@@ -34,22 +67,36 @@ const Register = () => {
         <h2 className="text-2xl font-playfair font-bold text-[#1a1a1a] mb-6 text-center">
           Create an Account
         </h2>
-        <form action="" className="space-y-4">
-          <Input variant="login" inputSize="lg" type="text" label="Full Name" />
+        <form onSubmit={handleSubmit} className="space-y-4">
           <Input
+            name="name"
+            variant="login"
+            inputSize="lg"
+            type="text"
+            label="Full Name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+          <Input
+            name="email"
             variant="login"
             inputSize="lg"
             type="email"
             label="Email Address"
+            value={formData.email}
+            onChange={handleChange}
           />
           <Input
+            name="password"
             variant="login"
             inputSize="lg"
             type="password"
             label="Password"
+            value={formData.password}
+            onChange={handleChange}
           />
 
-          <Button variant="default" size="medium" fullWidth>
+          <Button type="submit" variant="default" size="medium" fullWidth>
             Create Account
           </Button>
         </form>

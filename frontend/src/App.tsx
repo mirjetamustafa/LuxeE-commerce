@@ -5,10 +5,12 @@ import Shop from './pages/Shop'
 import Header from './components/layout/Header'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import { ToastContainer } from 'react-toastify'
 
 const App = () => {
   return (
     <div>
+      <ToastContainer />
       <Router>
         <Routes>
           <Route

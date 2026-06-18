@@ -1,8 +1,40 @@
 import { Link, NavLink } from 'react-router-dom'
 import Input from '../components/ui/Input'
 import Button from '../components/ui/Button'
+import { loginUser } from '../api/User/user'
+import { useEffect } from 'react'
+
+// interface UserLoginData {
+//   email: string
+//   password: string
+// }
 
 const Login = () => {
+  // const [formData, setFormData] = useState({
+  //   email: '',
+  //   password: '',
+  // })
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault()
+
+  //   try {
+  //     const res = await loginUser(formData)
+  //     console.log('Login success:', res)
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
+
+  useEffect(() => {
+    loginUser({
+      email: 'mustafamirjeta11@gmail.com',
+      password: '1234567889',
+    })
+      .then(console.log)
+      .catch(console.error)
+  }, [])
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#F9F9F9]">
       <div className="bg-white shadow-sm p-8 w-full max-w-md">
