@@ -8,7 +8,7 @@ const Button = ({
   fullWidth = false,
   ...props
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: 'default' | 'primary' | 'secondary' | 'blur' | 'ghost'
+  variant?: 'default' | 'primary' | 'secondary' | 'blur' | 'ghost' | 'admin'
   size?: 'small' | 'medium' | 'large'
   fullWidth?: boolean
 }) => {
@@ -22,6 +22,9 @@ const Button = ({
     'bg-white/10 border border-white/20 text-white backdrop-blur-xs hover:bg-white/20 transition-all duration-300':
       variant === 'blur',
     'bg-white text-gray-800  hover:bg-gray-100 shadow-md': variant === 'ghost',
+
+    'bg-indigo-600 text-white hover:bg-indigo-700 rounded-md':
+      variant === 'admin',
   })
   const sizeClasses = clsx({
     'px-4 py-2 text-sm': size === 'small',
