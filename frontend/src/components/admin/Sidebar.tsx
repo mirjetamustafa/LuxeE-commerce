@@ -6,7 +6,7 @@ import { useState } from 'react'
 const Sidebar = () => {
   const [open, setOpen] = useState(false)
   return (
-    <div className="">
+    <div className="sticky top-0 h-screen">
       <div className="hidden md:flex">
         <div className="w-64 bg-slate-900 text-white p-5 flex flex-col min-h-screen">
           <div>
