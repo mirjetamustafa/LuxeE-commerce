@@ -6,6 +6,12 @@ import Header from './components/layout/Header'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import { ToastContainer } from 'react-toastify'
+import User from './pages/User'
+import AdminLayout from './pages/admin/AdminLayout'
+import ProtectedAdminRoute from './routes/ProtectedAdminRoute'
+import Dashboard from './pages/admin/Dashboard'
+import AddProduct from './pages/admin/AddProduct'
+import Products from './pages/admin/Products'
 
 const App = () => {
   return (
@@ -54,6 +60,29 @@ const App = () => {
               </>
             }
           />
+
+          <Route
+            path="/user"
+            element={
+              <>
+                <Header />
+                <User />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedAdminRoute>
+                <AdminLayout />
+              </ProtectedAdminRoute>
+            }
+          >
+            <Route index element={<Dashboard />} />
+            <Route path="products" element={<Products />} />
+            <Route path="add-product" element={<AddProduct />} />
+          </Route>
         </Routes>
       </Router>
     </div>
