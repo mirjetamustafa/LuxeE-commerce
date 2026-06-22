@@ -5,7 +5,7 @@ import { Eye, EyeOff } from 'lucide-react'
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string
   error?: string
-  variant?: 'default' | 'outline' | 'products' | 'login'
+  variant?: 'default' | 'outline' | 'products' | 'login' | 'addProducts'
   inputSize?: 'sm' | 'md' | 'lg'
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
@@ -48,6 +48,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
       'border border-gray-200 rounded-xs bg-[#F9F9F9] focus:border-[#D4A853] focus:ring-2 focus:ring-[#D4A853]/20':
         variant === 'products',
+
+      'border-gray-200 focus:border-gray-300 focus:ring-1 focus:ring-gray-300':
+        variant === 'addProducts',
     })
 
     const sizeClasses = clsx({
@@ -83,6 +86,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             id={id}
             type={isPassword ? (showPassword ? 'text' : 'password') : type}
             disabled={isLoading}
+            onKeyDown={(e) => {
+              if (type === 'number' && e.key === '-') {
+                e.preventDefault()
+              }
+            }}
             className={clsx(
               baseClasses,
               variantClasses,
