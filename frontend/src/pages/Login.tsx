@@ -33,9 +33,12 @@ const Login = () => {
     try {
       const response = await loginUser(formData)
       localStorage.setItem('token', `Bearer ${response.token}`)
-      console.log('User Loged in:', response)
+      if (response.isAdmin) {
+        navigate('/admin')
+      } else {
+        navigate('/user')
+      }
       toast.success('Login Successfully!')
-      navigate('/user')
     } catch (error) {
       console.error(error)
       toast.error(error?.response?.data?.message || 'Login failed')
