@@ -1,7 +1,12 @@
 import { apiRequest } from '../Api'
-import type { LoginInput, RegisterInput } from './user.types'
+import type {
+  LoginInput,
+  LoginResponse,
+  RegisterInput,
+  RegisterResponse,
+} from './user.types'
 
-export const loginUser = (credentials: LoginInput) => {
+export const loginUser = (credentials: LoginInput): Promise<LoginResponse> => {
   return apiRequest({
     url: '/api/auth/login',
     method: 'POST',
@@ -9,7 +14,9 @@ export const loginUser = (credentials: LoginInput) => {
   })
 }
 
-export const registerUser = (data: RegisterInput) => {
+export const registerUser = (
+  data: RegisterInput,
+): Promise<RegisterResponse> => {
   return apiRequest({
     url: '/api/auth/register',
     method: 'POST',

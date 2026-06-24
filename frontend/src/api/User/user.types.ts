@@ -8,3 +8,12 @@ export interface RegisterInput {
   email: string
   password: string
 }
+
+export interface LoginResponse {
+  token: string
+  isAdmin: boolean
+}
+
+export interface RegisterResponse {
+  token: string
+}
