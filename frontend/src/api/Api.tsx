@@ -24,10 +24,8 @@ export async function apiRequest<D = unknown, R = unknown>({
       params,
       headers: {
         'Content-Type': 'application/json',
-        ...headers,
-        ...(token && {
-          Authorization: `Bearer ${token}`,
-        }),
+        ...(headers ?? {}),
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
     })
 
@@ -35,7 +33,7 @@ export async function apiRequest<D = unknown, R = unknown>({
   } catch (error) {
     const err = error as AxiosError
 
-    console.error('API request faled:', err.response?.data || err.message)
-    throw err.response?.data || err
+    console.error('API request failed:', err.response?.data || err.message)
+    throw err.response?.data ?? err
   }
 }
