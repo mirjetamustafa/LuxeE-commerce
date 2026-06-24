@@ -1,50 +1,10 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import Input from '../components/ui/Input'
 import Button from '../components/ui/Button'
-import type { LoginInput } from '../api/User/user.types'
-import { useState } from 'react'
-import { loginUser } from '../api/User/user'
-import { toast } from 'react-toastify'
-
-const initialFormLogin: LoginInput = {
-  email: '',
-  password: '',
-}
+import { useUser } from '../hooks/useUser'
 
 const Login = () => {
-  const [formData, setFormData] = useState(initialFormLogin)
-  const navigate = useNavigate()
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [event.target.name]: event.target.value,
-    }))
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    if (!formData.email || !formData.password) {
-      toast.error('Please fill all fields')
-      return
-    }
-
-    try {
-      const response = await loginUser(formData)
-      localStorage.setItem('token', `Bearer ${response.token}`)
-      if (response.isAdmin) {
-        navigate('/admin')
-      } else {
-        navigate('/user')
-      }
-      toast.success('Login Successfully!')
-    } catch (error) {
-      console.error(error)
-      toast.error(error?.response?.data?.message || 'Login failed')
-    }
-  }
-
+  const { formData, handleChange, handleSubmit } = useUser()
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#F9F9F9]">
       <div className="bg-white shadow-sm p-8 w-full max-w-md">
