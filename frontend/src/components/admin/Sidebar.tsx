@@ -1,10 +1,17 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import Button from '../ui/Button'
 import { CirclePlus, LayoutDashboard, Menu, Package, X } from 'lucide-react'
 import { useState } from 'react'
+import { useAuth } from '../../lib/AuthContext'
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false)
+  const { logout } = useAuth()
+  const navigate = useNavigate()
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
   return (
     <div className="sticky top-0 h-screen">
       <div className="hidden md:flex">
@@ -42,7 +49,12 @@ const Sidebar = () => {
           </div>
 
           <div className="mt-auto">
-            <Button variant="admin" size="medium" fullWidth>
+            <Button
+              variant="admin"
+              size="medium"
+              fullWidth
+              onClick={handleLogout}
+            >
               Sign Out
             </Button>
           </div>
@@ -104,7 +116,12 @@ const Sidebar = () => {
             </nav>
           </div>
           <div className="mt-auto">
-            <Button variant="admin" size="medium" fullWidth>
+            <Button
+              variant="admin"
+              size="medium"
+              fullWidth
+              onClick={handleLogout}
+            >
               Sign Out
             </Button>
           </div>
