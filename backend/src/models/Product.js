@@ -2,19 +2,36 @@ const mongoose = require('mongoose')
 
 const productSchema = new mongoose.Schema(
   {
-    title: String,
+    title: { type: String, required: true, trim: true },
 
-    description: String,
+    description: { type: String, required: true },
 
-    price: Number,
+    price: { type: Number, required: true, min: 0 },
+    compareAtPrice: { type: Number, required: true, default: 0, min: 0 },
+    sku: { type: String, required: true, unique: true, trim: true },
 
-    image: String,
+    image: {
+      type: [String],
+      validate: {
+        validator: function (v) {
+          return v.length === 2
+        },
+        message: 'Product must have exactly 2 imgages',
+      },
+      required: true,
+    },
 
-    stock: Number,
+    stock: { type: Number, default: 0, min: 0 },
+    status: {
+      type: String,
+      enum: ['active', 'draft'],
+      default: 'draft',
+    },
 
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
+      required: true,
     },
   },
   { timestamps: true },
