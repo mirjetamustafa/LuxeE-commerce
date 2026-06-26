@@ -7,6 +7,7 @@ export interface Product {
   sku: string
   status: 'active' | 'draft'
   image: string
+  hoverImage: string
   category: string
   stock: number
   createdAt: string
@@ -20,7 +21,8 @@ export interface CreateProductInput {
   compareAtPrice: number
   sku: string
   status: 'active' | 'draft'
-  image: string
+  image: File | null
+  hoverImage: File | null
   category: string
   stock: number
 }

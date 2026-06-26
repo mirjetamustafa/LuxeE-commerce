@@ -1,5 +1,5 @@
 import { apiRequest } from '../Api'
-import type { CreateProductInput, Product } from './product.types'
+import type { Product } from './product.types'
 
 export const getProducts = () =>
   apiRequest<void, Product>({
@@ -11,11 +11,14 @@ export const getProductById = (id: string) =>
     url: `/api/product/${id}`,
   })
 
-export const createProduct = (data: CreateProductInput) =>
-  apiRequest<CreateProductInput, Product>({
+export const createProduct = (data: FormData) =>
+  apiRequest<FormData, Product>({
     url: '/api/products',
     method: 'POST',
     data,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   })
 
 export const deleteProduct = (id: string) =>
