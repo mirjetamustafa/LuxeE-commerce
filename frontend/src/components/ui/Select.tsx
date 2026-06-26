@@ -1,19 +1,37 @@
 // selecet component with label and options
 import React from 'react'
 
-interface SelectProps {
+export type Option = {
   label: string
-  options: { value: string; label: string }[]
-  onChange: (value: string) => void
+  value: string
 }
 
-const Select: React.FC<SelectProps> = ({ label, options, onChange }) => {
+interface SelectProps {
+  label?: string
+  name: string
+  value: string
+  options: Option[]
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
+}
+
+const Select: React.FC<SelectProps> = ({
+  label,
+  name,
+  value,
+  options,
+  onChange,
+}) => {
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-sm font-medium text-gray-700">{label}</label>
+      <label htmlFor={name} className="text-sm font-medium text-gray-700">
+        {label}
+      </label>
       <select
+        id={name}
+        name={name}
+        value={value}
         className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-[#D4A853] focus:border-[#D4A853]"
-        onChange={(e) => onChange(e.target.value)}
+        onChange={onChange}
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
