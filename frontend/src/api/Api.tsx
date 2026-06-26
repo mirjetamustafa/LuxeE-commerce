@@ -16,6 +16,8 @@ export async function apiRequest<D = unknown, R = unknown>({
   try {
     const token = localStorage.getItem('token')
 
+    const isFormData = data instanceof FormData
+
     const response = await axios.request<R>({
       baseURL: import.meta.env.VITE_SERVER_URL,
       url,
@@ -23,7 +25,7 @@ export async function apiRequest<D = unknown, R = unknown>({
       data,
       params,
       headers: {
-        'Content-Type': 'application/json',
+        ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
         ...(headers ?? {}),
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
