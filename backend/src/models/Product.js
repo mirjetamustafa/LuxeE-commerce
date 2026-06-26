@@ -7,21 +7,27 @@ const productSchema = new mongoose.Schema(
     description: { type: String, required: true },
 
     price: { type: Number, required: true, min: 0 },
-    compareAtPrice: { type: Number, required: true, default: 0, min: 0 },
+
+    compareAtPrice: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+
     sku: { type: String, required: true, unique: true, trim: true },
 
     image: {
-      type: [String],
-      validate: {
-        validator: function (v) {
-          return v.length === 2
-        },
-        message: 'Product must have exactly 2 imgages',
-      },
+      type: String,
+      required: true,
+    },
+
+    hoverImage: {
+      type: String,
       required: true,
     },
 
     stock: { type: Number, default: 0, min: 0 },
+
     status: {
       type: String,
       enum: ['active', 'draft'],
