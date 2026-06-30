@@ -6,10 +6,12 @@ export interface Product {
   compareAtPrice: number
   sku: string
   status: 'active' | 'draft'
-  image: string
-  hoverImage: string
+  image: File | null
+  hoverImage: File | null
   category: string
   stock: number
+  isBestSeller: boolean
+  isSale: boolean
   createdAt: string
   updatedAt: string
 }
@@ -25,4 +27,6 @@ export interface CreateProductInput {
   hoverImage: File | null
   category: string
   stock: number
+  isBestSeller: boolean
+  isSale: boolean
 }
