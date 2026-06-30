@@ -25,7 +25,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <div className="relative h-90 w-full overflow-hidden">
           {/* Foto kryesore */}
           <img
-            src={product.image}
+            src={`http://localhost:5000/uploads/${product.image}`}
             alt={product.title}
             className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
           />
@@ -45,7 +45,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
           {/* Foto hover */}
           <img
-            src={product.hoverImage ?? product.image}
+            src={`http://localhost:5000/uploads/${product.hoverImage ?? product.image}`}
             alt={product.title}
             className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           />
