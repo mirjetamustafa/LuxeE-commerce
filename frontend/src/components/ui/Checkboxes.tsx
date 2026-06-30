@@ -3,6 +3,7 @@ import clsx from 'clsx'
 
 interface CheckboxesProps {
   id: string
+  name: string
   label: string
   checked: boolean
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -10,6 +11,7 @@ interface CheckboxesProps {
 
 const Checkboxes: React.FC<CheckboxesProps> = ({
   id,
+  name,
   label,
   checked,
   onChange,
@@ -19,6 +21,7 @@ const Checkboxes: React.FC<CheckboxesProps> = ({
       {/* hidden input */}
       <input
         id={id}
+        name={name}
         type="checkbox"
         checked={checked}
         onChange={onChange}
