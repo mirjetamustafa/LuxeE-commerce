@@ -4,15 +4,16 @@ import Select from '../../components/ui/Select'
 import Button from '../../components/ui/Button'
 import { useCreateProduct } from '../../hooks/useCreateProduct'
 import { useCategories } from '../../hooks/useCategories'
+import Checkboxes from '../../components/ui/Checkboxes'
 
 const AddProduct = () => {
   const { categories } = useCategories()
-  const { handleSubmit, handleChange, form, handleFileChange } =
+  const { handleSubmit, handleChange, form, handleFileChange, editProduct } =
     useCreateProduct()
   return (
     <div className="max-w-5xl mx-auto flex gap-7 w-full">
       <div className="w-full">
-        <h3 className="text-2xl font-bold">Add Product</h3>
+        <h3 className="text-2xl font-bold"> Add Product</h3>
         <form
           onSubmit={handleSubmit}
           className="border border-gray-200 rounded-md bg-white space-y-5 mt-9 p-5"
@@ -111,6 +112,22 @@ const AddProduct = () => {
                 }))}
               />
             </div>
+          </div>
+          <div className="flex gap-2">
+            <Checkboxes
+              id="isBestSeller"
+              name="isBestSeller"
+              label="Best Seller"
+              checked={form.isBestSeller}
+              onChange={handleChange}
+            />
+            <Checkboxes
+              id="isSale"
+              name="isSale"
+              label="On Sale"
+              checked={form.isSale}
+              onChange={handleChange}
+            />
           </div>
           <div className="flex gap-2">
             <Input
