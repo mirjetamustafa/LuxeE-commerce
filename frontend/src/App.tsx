@@ -13,6 +13,7 @@ import Dashboard from './pages/admin/Dashboard'
 import AddProduct from './pages/admin/AddProduct'
 import Products from './pages/admin/Products'
 import { AuthProvider } from './lib/AuthContext'
+import EditProduct from './pages/admin/EditProduct'
 
 const App = () => {
   return (
@@ -85,6 +86,7 @@ const App = () => {
               <Route index element={<Dashboard />} />
               <Route path="products" element={<Products />} />
               <Route path="add-product" element={<AddProduct />} />
+              <Route path="edit-product/:id" element={<EditProduct />} />
             </Route>
           </Routes>
         </Router>
