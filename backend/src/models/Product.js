@@ -1,46 +1,53 @@
 const mongoose = require('mongoose')
 
-const productSchema = new mongoose.Schema(
-  {
-    title: { type: String, required: true, trim: true },
+const productSchema = new mongoose.Schema({
+  title: { type: String, required: true, trim: true },
 
-    description: { type: String, required: true },
+  description: { type: String, required: true },
 
-    price: { type: Number, required: true, min: 0 },
+  price: { type: Number, required: true, min: 0 },
 
-    compareAtPrice: {
-      type: Number,
-      default: 0,
-      min: 0,
-    },
-
-    sku: { type: String, required: true, unique: true, trim: true },
-
-    image: {
-      type: String,
-      required: true,
-    },
-
-    hoverImage: {
-      type: String,
-      required: true,
-    },
-
-    stock: { type: Number, default: 0, min: 0 },
-
-    status: {
-      type: String,
-      enum: ['active', 'draft'],
-      default: 'draft',
-    },
-
-    category: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Category',
-      required: true,
-    },
+  compareAtPrice: {
+    type: Number,
+    default: 0,
+    min: 0,
   },
-  { timestamps: true },
-)
+
+  sku: { type: String, required: true, unique: true, trim: true },
+
+  image: {
+    type: String,
+    required: true,
+  },
+
+  hoverImage: {
+    type: String,
+    required: true,
+  },
+
+  isBestSeller: {
+    type: Boolean,
+    default: false,
+  },
+
+  isSale: {
+    type: Boolean,
+    default: false,
+  },
+
+  stock: { type: Number, default: 0, min: 0 },
+
+  status: {
+    type: String,
+    enum: ['active', 'draft'],
+    default: 'draft',
+  },
+
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
+    required: true,
+  },
+})
 
 module.exports = mongoose.model('Product', productSchema)

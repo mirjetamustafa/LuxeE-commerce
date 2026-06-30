@@ -24,6 +24,19 @@ exports.createProduct = async (req, res) => {
       })
     }
 
+    const {
+      title,
+      description,
+      price,
+      compareAtPrice,
+      sku,
+      status,
+      category,
+      stock,
+      isBestSeller,
+      isSale,
+    } = body
+
     const product = await Product.create({
       title: body.title,
       description: body.description,
@@ -35,9 +48,81 @@ exports.createProduct = async (req, res) => {
       stock: body.stock || 0,
       image,
       hoverImage,
+      isBestSeller: isBestSeller === 'true' || isBestSeller === true,
+      isSale: isSale === 'true' || isSale === true,
     })
 
     res.status(201).json(product)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
+
+// Edit product
+
+exports.updateProduct = async (req, res) => {
+  try {
+    const { body, files } = req
+
+    const {
+      title,
+      description,
+      price,
+      compareAtPrice,
+      sku,
+      status,
+      category,
+      stock,
+      isBestSeller,
+      isSale,
+    } = body
+
+    const updateData = {
+      title,
+      description,
+      price,
+      compareAtPrice,
+      sku,
+      status,
+      category,
+      stock,
+      isBestSeller: isBestSeller === 'true' || isBestSeller === true,
+      isSale: isSale === 'true' || isSale === true,
+    }
+
+    // if user upload new image
+    if (files?.image?.[0]) {
+      updateData.image = files.image[0].filename
+    }
+
+    if (files?.hoverImage?.[0]) {
+      updateData.hoverImage = files.hoverImage[0].filename
+    }
+
+    const product = await Product.findByIdAndUpdate(req.params.id, updateData, {
+      new: true,
+    })
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' })
+    }
+
+    res.json(product)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
+
+// Delete product
+exports.deleteProduct = async (req, res) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.id)
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' })
+    }
+
+    res.json({ message: 'Product deleted successfully' })
   } catch (error) {
     res.status(500).json({ message: error.message })
   }
