@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type React from 'react'
 import { toast } from 'react-toastify'
-import { createProduct } from '../api/products/product'
-import type { CreateProductInput } from '../api/products/product.types'
+import { createProduct, updateProduct } from '../api/products/product'
+import type { CreateProductInput, Product } from '../api/products/product.types'
+
+type CategoryInput = string | { _id: string } | null | undefined
 
 const initialForm: CreateProductInput = {
   title: '',
@@ -15,24 +17,58 @@ const initialForm: CreateProductInput = {
   hoverImage: null,
   category: '',
   stock: 0,
+  isBestSeller: false,
+  isSale: false,
 }
 
-export const useCreateProduct = () => {
+export const useCreateProduct = (initialProduct?: Product | null) => {
   const [form, setForm] = useState<CreateProductInput>(initialForm)
+
+  const getCategoryId = (category: CategoryInput): string => {
+    if (!category) return ''
+    if (typeof category === 'object' && '_id' in category) {
+      return category._id
+    }
+    return category
+  }
+
+  useEffect(() => {
+    if (initialProduct) {
+      setForm({
+        title: initialProduct.title || '',
+        description: initialProduct.description || '',
+        price: initialProduct.price || 0,
+        compareAtPrice: initialProduct.compareAtPrice || 0,
+        sku: initialProduct.sku || '',
+        status: initialProduct.status || 'draft',
+        category: getCategoryId(initialProduct.category),
+        stock: initialProduct.stock || 0,
+        isBestSeller: initialProduct.isBestSeller || false,
+        isSale: initialProduct.isSale || false,
+        image: null,
+        hoverImage: null,
+      } as CreateProductInput)
+    } else {
+      setForm(initialForm)
+    }
+  }, [initialProduct])
 
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >,
   ) => {
-    const { name, value } = e.target
+    const target = e.target as HTMLInputElement
+    const { name, value, type, checked } = target
 
     setForm((prev) => ({
       ...prev,
       [name]:
-        name === 'price' || name === 'compareAtPrice' || name === 'stock'
-          ? Number(value)
-          : value,
+        type === 'checkbox'
+          ? checked
+          : name === 'price' || name === 'compareAtPrice' || name === 'stock'
+            ? Number(value)
+            : value,
     }))
   }
 
@@ -52,25 +88,24 @@ export const useCreateProduct = () => {
 
     try {
       const formData = new FormData()
-      formData.append('title', form.title)
-      formData.append('description', form.description)
-      formData.append('price', String(form.price))
-      formData.append('compareAtPrice', String(form.compareAtPrice))
-      formData.append('sku', form.sku)
-      formData.append('status', form.status)
-      formData.append('category', form.category)
-      formData.append('stock', String(form.stock))
 
-      if (form.image) {
-        formData.append('image', form.image)
+      Object.entries(form).forEach(([key, value]) => {
+        if (value === null || value === undefined) return
+
+        if (value instanceof File) {
+          formData.append(key, value)
+        } else {
+          formData.append(key, String(value))
+        }
+      })
+
+      if (initialProduct) {
+        await updateProduct(initialProduct._id, formData)
+        toast.success('Product updated successfully')
+      } else {
+        await createProduct(formData)
+        toast.success('Product added succesfully!')
       }
-
-      if (form.hoverImage) {
-        formData.append('hoverImage', form.hoverImage)
-      }
-
-      await createProduct(formData)
-      toast.success('Product added succesfully!')
       setForm(initialForm)
     } catch (error) {
       console.error('Error creating product:', error)
