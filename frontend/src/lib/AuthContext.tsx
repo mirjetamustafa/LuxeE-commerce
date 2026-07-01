@@ -13,7 +13,6 @@ import type {
 } from '../api/User/user.types'
 
 import { loginUser, registerUser } from '../api/User/user'
-import { useNavigate } from 'react-router-dom'
 
 interface User {
   isAdmin: boolean
