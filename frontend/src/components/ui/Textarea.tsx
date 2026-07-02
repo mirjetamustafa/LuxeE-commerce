@@ -25,7 +25,7 @@ const Textarea: React.FC<TextareaProps> = ({
         name={name}
         value={value}
         onChange={onChange}
-        className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-[#D4A853] focus:border-[#D4A853] transition-all duration-200"
+        className="border border-gray-300 bg-gray-50 rounded-md p-2 focus:outline-none  focus:bg-white focus:ring-1 focus:ring-[#D4A853] focus:border-[#D4A853] transition-all duration-200"
         placeholder={placeholder}
         rows={rows}
       />
