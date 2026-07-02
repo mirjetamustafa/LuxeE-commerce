@@ -37,7 +37,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       'w-full rounded-md border transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed'
 
     const variantClasses = clsx({
-      'border-gray-200 bg-gray-100 focus:border-[#D4A853] focus:ring-2 focus:ring-[#D4A853]/30':
+      'border-gray-200 bg-gray-100 text-gray-500 focus:border-[#D4A853] focus:ring-2 focus:ring-[#D4A853]/30':
         variant === 'default',
 
       'border-gray-200 rounded-none focus:border-[#D4A853] focus:ring-2 focus:ring-[#D4A853]/30':
