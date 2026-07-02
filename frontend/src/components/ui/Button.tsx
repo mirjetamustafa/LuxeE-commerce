@@ -18,6 +18,7 @@ const Button = ({
     | 'edit'
     | 'delete'
     | 'next'
+    | 'logout'
   size?: 'small' | 'medium' | 'large'
   fullWidth?: boolean
 }) => {
@@ -38,6 +39,7 @@ const Button = ({
     'text-gray-600 hover:text-red-700': variant === 'delete',
     'text-gray-600 hover:bg-gray-100 border border-gray-200 rounded-md px-2 p-1':
       variant === 'next',
+    'bg-white text-red-600 hover:bg-red-50 shadow-xs': variant === 'logout',
   })
   const sizeClasses = clsx({
     'px-4 py-2 text-sm': size === 'small',
