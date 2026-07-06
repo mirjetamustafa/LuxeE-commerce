@@ -7,7 +7,7 @@ const UserSidebar = () => {
   const { logout } = useAuth()
   return (
     <div className="my-20">
-      <div className="w-64 bg-white text-white p-5 mb-6 shadow-xs">
+      <div className="w-110 md:w-64 bg-white text-white p-5 mb-6 shadow-xs">
         <div className="flex items-center gap-2 mb-6">
           <div className="flex items-center justify-center bg-[#D4A853] w-10 h-10 rounded-full">
             M
@@ -72,7 +72,7 @@ const UserSidebar = () => {
       </div>
 
       <Button variant="logout" size="medium" fullWidth onClick={logout}>
-        Logout
+        Sign Out
       </Button>
     </div>
   )
