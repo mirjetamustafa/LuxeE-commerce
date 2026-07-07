@@ -86,10 +86,12 @@ const Sidebar = ({ toggleMobileMenu }: { toggleMobileMenu: () => void }) => {
               <span className="text-xs">Account</span>
             </NavLink>
           </p>
-          <p className="flex flex-col items-center font-semibold text-gray-600 hover:text-[#D4A853] cursor-pointer">
-            <Heart className="w-5 h-5" />
-            <span className="text-xs">Wishlist</span>
-          </p>
+          <NavLink to="/user/wishlist">
+            <p className="flex flex-col items-center font-semibold text-gray-600 hover:text-[#D4A853] cursor-pointer">
+              <Heart className="w-5 h-5" />
+              <span className="text-xs">Wishlist</span>
+            </p>
+          </NavLink>
         </div>
       </div>
     </div>

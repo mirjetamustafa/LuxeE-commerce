@@ -86,7 +86,9 @@ const Header = () => {
           <NavLink to="/user">
             <User className="hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
           </NavLink>
-          <Heart className="hidden md:flex hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
+          <NavLink to="/user/wishlist">
+            <Heart className="hidden md:flex hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
+          </NavLink>
           <NavLink to="/cart">
             <ShoppingCart className="hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
           </NavLink>

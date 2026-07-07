@@ -109,9 +109,12 @@ const Navbar = () => {
               className={`hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
             />
           </NavLink>
-          <Heart
-            className={`hidden md:flex hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
-          />
+          <NavLink to="/user/wishlist">
+            <Heart
+              className={`hidden md:flex hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
+            />{' '}
+          </NavLink>
+
           <NavLink to="/cart">
             <ShoppingCart
               className={`hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
