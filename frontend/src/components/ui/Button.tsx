@@ -42,7 +42,7 @@ const Button = ({
     'bg-white text-red-600 hover:bg-red-50 shadow-xs': variant === 'logout',
   })
   const sizeClasses = clsx({
-    'px-4 py-2 text-sm': size === 'small',
+    'px-4 py-2 text-sm font-semibold': size === 'small',
     'px-6 py-3 text-base font-semibold': size === 'medium',
     'px-6 py-3 text-lg font-medium': size === 'large',
   })
