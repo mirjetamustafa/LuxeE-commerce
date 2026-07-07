@@ -54,7 +54,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     })
 
     const sizeClasses = clsx({
-      'px-3 py-2 text-sm': inputSize === 'sm',
+      'px-7 py-2 text-sm': inputSize === 'sm',
       'px-7 py-2 text-base': inputSize === 'md',
       'px-5 py-3 text-base': inputSize === 'lg',
     })
