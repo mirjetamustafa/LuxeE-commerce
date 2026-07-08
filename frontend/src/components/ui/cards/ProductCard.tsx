@@ -7,6 +7,7 @@ interface Product {
   id?: string | number
   title?: string
   price?: number
+  compareAtPrice?: number
   image?: string
   hoverImage?: string
   link?: string
@@ -120,10 +121,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <Star stroke="#D4A853" size={12} />
         </div>
 
-        <div className="mt-3 flex items-center justify-between">
+        <div className="mt-3 flex items-center gap-3">
           <span className="text-lg font-semibold text-gray-900">
-            ${product.price}
+            ${Number(product.price)?.toFixed(2)}
           </span>
+          {product.compareAtPrice !== 0 && (
+            <span className="text-md text-gray-400 line-through">
+              ${Number(product.compareAtPrice)?.toFixed(2)}
+            </span>
+          )}
         </div>
       </div>
     </div>
