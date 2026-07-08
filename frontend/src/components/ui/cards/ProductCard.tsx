@@ -4,15 +4,15 @@ import Button from '../Button'
 import { Heart, Star } from 'lucide-react'
 
 interface Product {
-  id?: string | number
-  title?: string
-  price?: number
+  _id: string
+  title: string
+  price: number
   compareAtPrice?: number
-  image?: string
+  image: string
   hoverImage?: string
   link?: string
-  isSale?: boolean
-  isBestSeller?: boolean
+  isSale: boolean
+  isBestSeller: boolean
 }
 
 interface ProductCardProps {
