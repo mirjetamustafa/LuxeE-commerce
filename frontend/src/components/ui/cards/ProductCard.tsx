@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 
 import Button from '../Button'
 import { Heart, Star } from 'lucide-react'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../../../redux/slices/cartSlice'
 
 interface Product {
   _id: string
@@ -20,6 +22,7 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const dispatch = useDispatch()
   return (
     <div className="group overflow-hidden">
       <Link to={product.link ?? '/'} className="block overflow-hidden">
@@ -88,6 +91,18 @@ const ProductCard = ({ product }: ProductCardProps) => {
       transition
       cursor-pointer
     "
+              onClick={(e) => {
+                e.preventDefault()
+                dispatch(
+                  addToCart({
+                    _id: product._id,
+                    title: product.title,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1,
+                  }),
+                )
+              }}
             >
               Add to Cart
             </Button>
