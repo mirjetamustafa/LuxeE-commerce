@@ -2,6 +2,8 @@ import { Search, ShoppingCart, User, Heart, Menu } from 'lucide-react'
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import Sidebar from './Sidebar'
+import type { RootState } from '../../redux/store'
+import { useSelector } from 'react-redux'
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
@@ -20,6 +22,11 @@ const Navbar = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
+
+  const cartItems = useSelector((state: RootState) => state.cart.items)
+
+  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0)
+
   return (
     <nav
       className={`fixed  top-0 left-0 w-full z-50 transition-colors duration-300
@@ -117,8 +124,13 @@ const Navbar = () => {
 
           <NavLink to="/cart">
             <ShoppingCart
-              className={`hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
+              className={`hover:text-[#D4A853] cursor-pointer relative duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
             />
+            {totalItems > 0 && (
+              <span className="text-white text-xs top-0 ml-5 mt-3 font-semibold absolute rounded-full bg-[#D4A853] px-1.5">
+                {totalItems}
+              </span>
+            )}
           </NavLink>
         </div>
       </div>
