@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom'
 import Button from '../Button'
 import { Heart, Star } from 'lucide-react'
 import { useDispatch } from 'react-redux'
-import { addToCart } from '../../../redux/slices/cartSlice'
+import { addProductToCart } from '../../../redux/slices/cartSlice'
+import type { AppDispatch } from '../../../redux/store'
+import type React from 'react'
 
 interface Product {
   _id: string
@@ -22,14 +24,26 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
+
+  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    dispatch(
+      addProductToCart({
+        productId: product._id,
+        quantity: 1,
+      }),
+    )
+  }
   return (
     <div className="group overflow-hidden">
       <Link to={product.link ?? '/'} className="block overflow-hidden">
         <div className="relative h-90 w-full overflow-hidden">
           {/* Foto kryesore */}
           <img
-            src={`http://localhost:5000/uploads/${product.image}`}
+            src={`http://localhost:5000${product.image}`}
             alt={product.title}
             className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
           />
@@ -49,7 +63,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
           {/* Foto hover */}
           <img
-            src={`http://localhost:5000/uploads/${product.hoverImage ?? product.image}`}
+            src={`http://localhost:5000${product.hoverImage ?? product.image}`}
             alt={product.title}
             className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           />
@@ -91,18 +105,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       transition
       cursor-pointer
     "
-              onClick={(e) => {
-                e.preventDefault()
-                dispatch(
-                  addToCart({
-                    _id: product._id,
-                    title: product.title,
-                    price: product.price,
-                    image: product.image,
-                    quantity: 1,
-                  }),
-                )
-              }}
+              onClick={handleAddToCart}
             >
               Add to Cart
             </Button>
@@ -138,11 +141,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
         <div className="mt-3 flex items-center gap-3">
           <span className="text-lg font-semibold text-gray-900">
-            ${Number(product.price)?.toFixed(2)}
+            ${product.price.toFixed(2)}
           </span>
           {product.compareAtPrice !== 0 && (
             <span className="text-md text-gray-400 line-through">
-              ${Number(product.compareAtPrice)?.toFixed(2)}
+              ${product.compareAtPrice?.toFixed(2)}
             </span>
           )}
         </div>
