@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 interface CartItemProps {
   image: string
   title: string
-  category: string
+  category?: string
   price: number
   quantity: number
   onIncrease: () => void
