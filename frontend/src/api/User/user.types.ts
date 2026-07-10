@@ -10,10 +10,24 @@ export interface RegisterInput {
 }
 
 export interface LoginResponse {
-  token: string
+  _id: string
+  name: string
+  email: string
   isAdmin: boolean
+  token: string
 }
 
 export interface RegisterResponse {
+  _id: string
+  name: string
+  email: string
+  isAdmin: boolean
   token: string
+}
+
+export interface User {
+  _id: string
+  name: string
+  email: string
+  isAdmin: boolean
 }
