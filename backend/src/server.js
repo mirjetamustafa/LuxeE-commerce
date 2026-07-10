@@ -5,6 +5,7 @@ const path = require('path')
 
 const connectDB = require('./config/db')
 const createAdmin = require('./utils/seedAdmin')
+const cartRoutes = require('./routes/cartRoutes')
 
 dotenv.config()
 
@@ -25,6 +26,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', require('./routes/authRoutes'))
 app.use('/api/products', require('./routes/productRoutes'))
 app.use('/api/categories', require('./routes/categoryRoutes'))
+app.use('/api/cart', cartRoutes)
 
 const PORT = process.env.PORT || 5000
 
