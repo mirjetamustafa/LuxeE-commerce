@@ -6,8 +6,8 @@ export interface Product {
   compareAtPrice: number
   sku: string
   status: 'active' | 'draft'
-  image: File | null
-  hoverImage: File | null
+  image: string
+  hoverImage: string
   category: string
   stock: number
   isBestSeller: boolean

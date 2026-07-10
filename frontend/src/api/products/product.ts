@@ -8,7 +8,7 @@ export const getProducts = () =>
 
 export const getProductById = (id: string) =>
   apiRequest<void, Product>({
-    url: `/api/product/${id}`,
+    url: `/api/products/${id}`,
   })
 
 export const createProduct = (data: FormData) =>
