@@ -23,9 +23,10 @@ const Header = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
 
-  const cartItems = useSelector((state: RootState) => state.cart.items)
+  const cart = useSelector((state: RootState) => state.cart.cart)
 
-  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0)
+  const totalItems =
+    cart?.items.reduce((total, item) => total + item.quantity, 0) || 0
   return (
     <nav
       className={`fixed  top-0 left-0 py-1 w-full z-50 transition-all duration-200 
