@@ -1,10 +1,17 @@
 import CartItem from '../components/cart/CartItem'
-import product1 from '../assets/products/product10.jfif'
-import product2 from '../assets/products/product2.jfif'
 import OrderSummary from '../components/cart/OrderSummary'
 import { NavLink } from 'react-router-dom'
 import { MoveLeft } from 'lucide-react'
+import { useDispatch, useSelector } from 'react-redux'
+import type { RootState } from '../redux/store'
+import {
+  updateQuantity,
+  removeProductFromCart,
+} from '../redux/slices/cartSlice'
 const Cart = () => {
+  const dispatch = useDispatch()
+  const cart = useSelector((state: RootState) => state.cart.cart)
+
   return (
     <div className="bg-[#F9F9F9]  pt-24 pb-20">
       <div className="max-w-6xl mx-9 md:mx-auto">
@@ -14,36 +21,43 @@ const Cart = () => {
         <div className="flex flex-col md:flex-row gap-8">
           <div className="w-full lg:w-2/3">
             <div className="bg-white shadow-sm p-4">
-              <CartItem
-                image={product1}
-                title="Hydrating Facial Serum"
-                category="Health & Beauty"
-                price={48.0}
-                quantity={1}
-                onIncrease={() => console.log('Increase')}
-                onDecrease={() => console.log('Decrease')}
-                onRemove={() => console.log('Remove')}
-              />
-              <CartItem
-                image={product2}
-                title="Hydrating Facial Serum"
-                category="Health & Beauty"
-                price={48}
-                quantity={1}
-                onIncrease={() => console.log('Increase')}
-                onDecrease={() => console.log('Decrease')}
-                onRemove={() => console.log('Remove')}
-              />
-              <CartItem
-                image={product1}
-                title="Hydrating Facial Serum"
-                category="Health & Beauty"
-                price={48}
-                quantity={1}
-                onIncrease={() => console.log('Increase')}
-                onDecrease={() => console.log('Decrease')}
-                onRemove={() => console.log('Remove')}
-              />
+              {!cart || cart.items.length === 0 ? (
+                <p className="text-center py-10 text-gray-500">
+                  Your cart is empty
+                </p>
+              ) : (
+                cart?.items.map((item) => (
+                  <CartItem
+                    key={item.product._id}
+                    image={`http://localhost:5000${item.product.image}`}
+                    title={item.product.title}
+                    category={item.product.category?.name}
+                    price={item.product.price}
+                    quantity={item.quantity}
+                    onIncrease={() => {
+                      dispatch(
+                        updateQuantity({
+                          productId: item.product._id,
+                          quantity: item.quantity + 1,
+                        }),
+                      )
+                    }}
+                    onDecrease={() => {
+                      if (item.quantity > 1) {
+                        dispatch(
+                          updateQuantity({
+                            productId: item.product._id,
+                            quantity: item.quantity - 1,
+                          }),
+                        )
+                      }
+                    }}
+                    onRemove={() => {
+                      dispatch(removeProductFromCart(item.product._id))
+                    }}
+                  />
+                ))
+              )}
             </div>
             <NavLink
               to="/shop"
