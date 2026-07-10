@@ -1,67 +1,104 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-
-interface CartItem {
-  _id: string
-  title: string
-  price: number
-  image: string
-  quantity: number
-}
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import {
+  addToCart as addToCartApi,
+  getCart as getCartApi,
+  removeFromCart as removeFromCartApi,
+  updateCartQuantity as updateCartQuantityApi,
+  clearCart as clearCartApi,
+} from '../../api/cart/cart'
+import type { Cart } from '../../api/cart/cart.types'
 
 interface CartState {
-  items: CartItem[]
+  cart: Cart | null
+  loading: boolean
+  error: string | null
 }
 
 const initialState: CartState = {
-  items: [],
+  cart: null,
+  loading: false,
+  error: null,
 }
+
+// get cart
+export const fetchCart = createAsyncThunk('cart/getCart', async () => {
+  const response = await getCartApi()
+  return response
+})
+
+// add to cart
+export const addProductToCart = createAsyncThunk(
+  'cart/addToCart',
+  async (data: { productId: string; quantity: number }) => {
+    const response = await addToCartApi(data)
+    return response
+  },
+)
+
+// update quantity
+export const updateQuantity = createAsyncThunk(
+  'cart/updateQuantity',
+  async ({ productId, quantity }: { productId: string; quantity: number }) => {
+    const response = await updateCartQuantityApi(productId, quantity)
+    return response
+  },
+)
+
+// remove product cart
+export const removeProductFromCart = createAsyncThunk(
+  'cart/removeProduct',
+  async (productId: string) => {
+    const response = await removeFromCartApi(productId)
+    return response
+  },
+)
+
+// clear cart
+export const clearUserCart = createAsyncThunk('cart/clearCart', async () => {
+  await clearCartApi()
+  return null
+})
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<CartItem>) => {
-      const existingItem = state.items.find(
-        (item) => item._id === action.payload._id,
+    clearCartState: (state) => {
+      state.cart = null
+    },
+  },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCart.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(fetchCart.fulfilled, (state, action) => {
+        state.loading = false
+        state.cart = action.payload
+      })
+      .addCase(addProductToCart.fulfilled, (state, action) => {
+        state.cart = action.payload
+      })
+      .addCase(updateQuantity.fulfilled, (state, action) => {
+        state.cart = action.payload
+      })
+      .addCase(removeProductFromCart.fulfilled, (state, action) => {
+        state.cart = action.payload
+      })
+      .addCase(clearUserCart.fulfilled, (state) => {
+        state.cart = null
+      })
+      .addMatcher(
+        (action) => action.type.endsWith('/rejected'),
+        (state, action) => {
+          state.loading = false
+          state.error = action.error.message || 'Somethnig went wrong'
+        },
       )
-
-      if (existingItem) {
-        existingItem.quantity += 1
-      } else {
-        state.items.push(action.payload)
-      }
-    },
-
-    removeFromCart: (state, action: PayloadAction<string>) => {
-      state.items = state.items.filter((item) => item._id !== action.payload)
-    },
-
-    increaseQuantity: (state, action: PayloadAction<string>) => {
-      const item = state.items.find((item) => item._id === action.payload)
-
-      if (item) {
-        item.quantity += 1
-      }
-    },
-
-    decreaseQuantity: (state, action: PayloadAction<string>) => {
-      const item = state.items.find((item) => item._id === action.payload)
-      if (item && item.quantity > 1) {
-        item.quantity -= 1
-      }
-    },
-    clearCart: (state) => {
-      state.items = []
-    },
   },
 })
 
-export const {
-  addToCart,
-  removeFromCart,
-  increaseQuantity,
-  decreaseQuantity,
-  clearCart,
-} = cartSlice.actions
+export const { clearCartState } = cartSlice.actions
 
 export default cartSlice.reducer
