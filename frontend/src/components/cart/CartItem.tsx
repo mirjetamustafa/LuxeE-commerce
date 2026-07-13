@@ -75,7 +75,7 @@ const CartItem = ({
               </button>
             </div>
             <div className="text-right">
-              <p className="font-semibold">${price}</p>
+              <p className="font-semibold">${price.toFixed(2)}</p>
             </div>
           </div>
         </div>
