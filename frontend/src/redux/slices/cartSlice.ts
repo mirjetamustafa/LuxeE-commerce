@@ -12,12 +12,16 @@ interface CartState {
   cart: Cart | null
   loading: boolean
   error: string | null
+  discountCode: string
+  discount: number
 }
 
 const initialState: CartState = {
   cart: null,
   loading: false,
   error: null,
+  discountCode: '',
+  discount: 0,
 }
 
 // get cart
@@ -66,6 +70,23 @@ const cartSlice = createSlice({
     clearCartState: (state) => {
       state.cart = null
     },
+    setDiscount: (
+      state,
+      action: {
+        payload: {
+          code: string
+          discount: number
+        }
+      },
+    ) => {
+      state.discountCode = action.payload.code
+      state.discount = action.payload.discount
+    },
+
+    removeDiscount: (state) => {
+      state.discountCode = ''
+      state.discount = 0
+    },
   },
 
   extraReducers: (builder) => {
@@ -99,6 +120,6 @@ const cartSlice = createSlice({
   },
 })
 
-export const { clearCartState } = cartSlice.actions
+export const { clearCartState, setDiscount, removeDiscount } = cartSlice.actions
 
 export default cartSlice.reducer
