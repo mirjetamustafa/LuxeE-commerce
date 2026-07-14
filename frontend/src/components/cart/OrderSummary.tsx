@@ -6,6 +6,7 @@ import Input from '../ui/Input'
 import { useAppDispatch } from '../../redux/hooks'
 import { useState } from 'react'
 import useCartSammuray from '../../hooks/useCartSammuray'
+import { NavLink } from 'react-router-dom'
 
 const OrderSummary = () => {
   const { subtotal, discountAmount, tax, total } = useCartSammuray()
@@ -114,9 +115,11 @@ const OrderSummary = () => {
         <p className="text-xl font-bold font-playfair">Total</p>
         <p className="text-xl font-bold font-playfair">${total.toFixed(2)}</p>
       </div>
-      <Button variant="primary" size="large" fullWidth>
-        Proceed to Checkout
-      </Button>
+      <NavLink to="/checkout">
+        <Button variant="primary" size="large" fullWidth>
+          Proceed to Checkout
+        </Button>
+      </NavLink>
       <p className="text-xs text-gray-600 text-center mt-4">
         Secure checkout powered by industry-leading encryption
       </p>
