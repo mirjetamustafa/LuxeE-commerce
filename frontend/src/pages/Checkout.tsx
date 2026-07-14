@@ -3,6 +3,7 @@ import ShippingForm from '../components/checkout/ShippingForm'
 import { Check } from 'lucide-react'
 import PaymentMethod from '../components/checkout/PaymentMethod'
 import ReviewOrder from '../components/checkout/ReviewOrder'
+import OrderSummary from '../components/checkout/OrderSummary'
 
 const Checkout = () => {
   const [step, setStep] = useState(1)
@@ -72,7 +73,11 @@ const Checkout = () => {
             {step === 2 && <PaymentMethod setStep={setStep} />}
             {step === 3 && <ReviewOrder setStep={setStep} />}
           </div>
-          <div className="w-full md:w-[350px] h-50 bg-white my-0 md:my-5"></div>
+          <div className="w-full md:w-[350px] my-0 md:my-5">
+            <div className="sticky top-24 bg-white">
+              <OrderSummary />
+            </div>
+          </div>
         </div>
       </div>
     </div>
