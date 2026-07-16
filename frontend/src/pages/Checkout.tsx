@@ -4,9 +4,52 @@ import { Check } from 'lucide-react'
 import PaymentMethod from '../components/checkout/PaymentMethod'
 import ReviewOrder from '../components/checkout/ReviewOrder'
 import OrderSummary from '../components/checkout/OrderSummary'
+import { useOrder } from '../hooks/useOrder'
+import useCart from '../hooks/useCart'
+import useCartSummary from '../hooks/useCartSummary'
+import { toast } from 'react-toastify'
+import type { PaymentMethodTypes } from '../api/order/order.types'
+import { useNavigate } from 'react-router-dom'
 
 const Checkout = () => {
+  const { placeOrder } = useOrder()
+  const { items } = useCart()
+  const { total } = useCartSummary()
+  const navigate = useNavigate()
+
   const [step, setStep] = useState(1)
+
+  const [shippingAddress, setShippingAddress] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    streetAddress: '',
+    city: '',
+    state: '',
+    zipCode: '',
+  })
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethodTypes>('')
+  const [paymentDetails, setPaymentDetails] = useState({
+    cardNumber: '',
+    cardholderName: '',
+    expiryDate: '',
+    cvv: '',
+  })
+
+  const handlePlaceOrder = async () => {
+    const orderData = {
+      shippingAddress,
+      paymentMethod,
+      items,
+      totalPrice: total,
+    }
+
+    const order = await placeOrder(orderData)
+    navigate(`/orderConfirmed/${order._id}`)
+    toast.success('Order successfuly created')
+  }
+
   return (
     <div className="bg-[#F9F9F9]  pt-24 pb-20">
       <div className="w-ful md:max-w-6xl mx-9 md:mx-auto py-8">
@@ -69,9 +112,32 @@ const Checkout = () => {
 
         <div className="flex flex-col md:flex-row gap-9">
           <div className="flex-1 bg-white my-5">
-            {step === 1 && <ShippingForm setStep={setStep} />}
-            {step === 2 && <PaymentMethod setStep={setStep} />}
-            {step === 3 && <ReviewOrder setStep={setStep} />}
+            {step === 1 && (
+              <ShippingForm
+                setStep={setStep}
+                shippingAddress={shippingAddress}
+                setShippingAddress={setShippingAddress}
+              />
+            )}
+            {step === 2 && (
+              <PaymentMethod
+                setStep={setStep}
+                paymentMethod={paymentMethod}
+                setPaymentMethod={setPaymentMethod}
+                paymentDetails={paymentDetails}
+                setPaymentDetails={setPaymentDetails}
+              />
+            )}
+            {step === 3 && (
+              <ReviewOrder
+                setStep={setStep}
+                shippingAddress={shippingAddress}
+                paymentMethod={paymentMethod}
+                items={items}
+                totalPrice={total}
+                handlePlaceOrder={handlePlaceOrder}
+              />
+            )}
           </div>
           <div className="w-full md:w-[350px] my-0 md:my-5">
             <div className="sticky top-24 bg-white">
