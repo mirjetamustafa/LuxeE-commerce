@@ -5,7 +5,7 @@ import Button from '../ui/Button'
 import Input from '../ui/Input'
 import { useAppDispatch } from '../../redux/hooks'
 import { useState } from 'react'
-import useCartSammuray from '../../hooks/useCartSammuray'
+import useCartSammuray from '../../hooks/useCartSummary'
 import { NavLink } from 'react-router-dom'
 
 const OrderSummary = () => {
