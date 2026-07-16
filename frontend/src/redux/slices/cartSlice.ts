@@ -108,7 +108,9 @@ const cartSlice = createSlice({
         state.cart = action.payload
       })
       .addCase(clearUserCart.fulfilled, (state) => {
-        state.cart = null
+        if (state.cart) {
+          state.cart.items = []
+        }
       })
       .addMatcher(
         (action) => action.type.endsWith('/rejected'),
