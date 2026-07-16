@@ -6,29 +6,32 @@ export interface ShippingAddress {
   streetAddress: string
   city: string
   state: string
-  ziCode: string
+  zipCode: string
 }
 
 export interface OrderItem {
   product: string
+  name: string
   quantity: number
   price: number
 }
 
 export interface CreateOrderInput {
+  orderNumber: string
   shippingAddress: ShippingAddress
   paymentMethod: string
   items: OrderItem[]
   totalPrice: number
 }
 
-export type PaymentMethod = 'Credit Card' | 'Cash on Delivery'
+export type PaymentMethodTypes = 'Credit Card' | 'Cash on Delivery'
 
 export interface Order {
   _id: string
+  orderNumber: string
   customer: string
   shippingAddress: ShippingAddress
-  paymentMethod: PaymentMethod
+  paymentMethod: PaymentMethodTypes
   items: OrderItem[]
   totalPrice: number
   status: string
