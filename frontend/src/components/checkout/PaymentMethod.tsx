@@ -1,16 +1,35 @@
 import { CreditCard, Lock } from 'lucide-react'
-import { useState } from 'react'
+
 import Input from '../ui/Input'
 import Button from '../ui/Button'
-
-type PaymentMethod = 'credit-card' | 'paypal'
+import type { PaymentMethodTypes } from '../../api/order/order.types'
 
 interface PaymentMethodProps {
   setStep: (step: number) => void
+  paymentMethod: PaymentMethodTypes
+  setPaymentMethod: (method: PaymentMethodTypes) => void
+  paymentDetails: {
+    cardNumber: string
+    cardholderName: string
+    expiryDate: string
+    cvv: string
+  }
+  setPaymentDetails: (data: {
+    cardNumber: string
+    cardholderName: string
+    expiryDate: string
+    cvv: string
+  }) => void
 }
 
-const PaymentMethod = ({ setStep }: PaymentMethodProps) => {
-  const [payment, setPayment] = useState<PaymentMethod>('credit-card')
+const PaymentMethod = ({
+  setStep,
+  paymentMethod,
+  setPaymentMethod,
+  paymentDetails,
+  setPaymentDetails,
+}: PaymentMethodProps) => {
+  // const [payment, setPayment] = useState<PaymentMethodType>('credit-card')
 
   const buttonClasses =
     'inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold w-full border-2 transition-colors cursor-pointer focus:outline-none'
@@ -21,9 +40,10 @@ const PaymentMethod = ({ setStep }: PaymentMethodProps) => {
       </h2>
       <div className="flex justify-center gap-4">
         <button
-          onClick={() => setPayment('credit-card')}
+          type="button"
+          onClick={() => setPaymentMethod('Credit Card')}
           className={`${buttonClasses} ${
-            payment === 'credit-card'
+            paymentMethod === 'Credit Card'
               ? 'bg-[#D4A853]/10 border-[#D4A853]'
               : 'bg-white border-gray-200'
           }`}
@@ -32,18 +52,19 @@ const PaymentMethod = ({ setStep }: PaymentMethodProps) => {
           Credit Card
         </button>
         <button
-          onClick={() => setPayment('paypal')}
+          type="button"
+          onClick={() => setPaymentMethod('Cash on Delivery')}
           className={`${buttonClasses} ${
-            payment === 'paypal'
+            paymentMethod === 'Cash on Delivery'
               ? 'bg-[#D4A853]/10 border-[#D4A853]'
               : 'bg-white border-gray-200'
           }`}
         >
-          PayPal
+          Cash on Delivery
         </button>
       </div>
 
-      {payment === 'credit-card' ? (
+      {paymentMethod === 'Credit Card' ? (
         <div className="mt-9">
           <form className="space-y-5">
             <Input
@@ -52,6 +73,13 @@ const PaymentMethod = ({ setStep }: PaymentMethodProps) => {
               placeholder="1234 5678 9012 3456"
               variant="login"
               inputSize="lg"
+              value={paymentDetails.cardNumber}
+              onChange={(e) =>
+                setPaymentDetails({
+                  ...paymentDetails,
+                  cardNumber: e.target.value,
+                })
+              }
             />
 
             <Input
@@ -60,6 +88,13 @@ const PaymentMethod = ({ setStep }: PaymentMethodProps) => {
               placeholder=""
               variant="login"
               inputSize="lg"
+              value={paymentDetails.cardholderName}
+              onChange={(e) =>
+                setPaymentDetails({
+                  ...paymentDetails,
+                  cardholderName: e.target.value,
+                })
+              }
             />
 
             <div className="flex flex-col md:flex-row gap-4">
@@ -69,6 +104,13 @@ const PaymentMethod = ({ setStep }: PaymentMethodProps) => {
                 placeholder="MM/YY"
                 variant="login"
                 inputSize="lg"
+                value={paymentDetails.expiryDate}
+                onChange={(e) =>
+                  setPaymentDetails({
+                    ...paymentDetails,
+                    expiryDate: e.target.value,
+                  })
+                }
               />
               <Input
                 name="cvv"
@@ -76,6 +118,13 @@ const PaymentMethod = ({ setStep }: PaymentMethodProps) => {
                 placeholder="123"
                 variant="login"
                 inputSize="lg"
+                value={paymentDetails.cvv}
+                onChange={(e) =>
+                  setPaymentDetails({
+                    ...paymentDetails,
+                    cvv: e.target.value,
+                  })
+                }
               />
             </div>
             <div className="flex items-center text-gray-600 pt-5 gap-2">
@@ -84,6 +133,7 @@ const PaymentMethod = ({ setStep }: PaymentMethodProps) => {
             </div>
             <div className="flex flex-col md:flex-row gap-4">
               <Button
+                type="button"
                 variant="secondary"
                 size="large"
                 fullWidth
@@ -92,6 +142,7 @@ const PaymentMethod = ({ setStep }: PaymentMethodProps) => {
                 Back
               </Button>
               <Button
+                type="button"
                 variant="primary"
                 size="large"
                 fullWidth
@@ -105,7 +156,7 @@ const PaymentMethod = ({ setStep }: PaymentMethodProps) => {
       ) : (
         <div>
           <p className="text-gray-800 py-9">
-            You will be redirected to PayPal to complete your purchase.
+            You will pay when your order is delivered.
           </p>
 
           <div className="flex flex-col md:flex-row gap-4">
