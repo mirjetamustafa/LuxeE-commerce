@@ -91,36 +91,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
     group-hover:translate-y-0
       "
           >
-            <Button
-              className="
-      flex-1
-      bg-white
-      h-12
-      flex items-center justify-center
-      text-gray-900
-      font-medium
-      shadow-md
-      hover:bg-gray-900
-      hover:text-white
-      transition
-      cursor-pointer
-    "
-              onClick={handleAddToCart}
-            >
+            <Button variant="default" fullWidth onClick={handleAddToCart}>
               Add to Cart
             </Button>
-            <Button
-              className="
-      w-12 h-12
-      bg-white
-      flex items-center justify-center
-      shadow-md
-      hover:bg-gray-100
-      transition
-      cursor-pointer
-
-    "
-            >
+            <Button variant="ghost">
               <Heart />
             </Button>
           </div>
