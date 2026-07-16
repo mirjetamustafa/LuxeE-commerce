@@ -1,8 +1,11 @@
 const express = require('express')
-const { createOrder } = require('../controllers/orderController')
+const { createOrder, getOrderById } = require('../controllers/orderController')
+const authMiddleware = require('../middleware/authMiddleware')
 
 const router = express.Router()
 
-router.post('/', createOrder)
+router.post('/', authMiddleware, createOrder)
 
-export default router
+router.get('/:id', authMiddleware, getOrderById)
+
+module.exports = router
