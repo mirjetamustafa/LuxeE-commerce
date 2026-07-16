@@ -21,3 +21,8 @@ export const getMyOrders = (): Promise<Order[]> => {
     method: 'GET',
   })
 }
+
+export const getOrderId = (id: string) =>
+  apiRequest<void, Order>({
+    url: `/api/orders/${id}`,
+  })
