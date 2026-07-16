@@ -1,4 +1,4 @@
-import useCartSammuray from '../../hooks/useCartSammuray'
+import useCartSammuray from '../../hooks/useCartSummary'
 
 const OrderSummary = () => {
   const { subtotal, discount, tax, total } = useCartSammuray()
