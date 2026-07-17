@@ -28,6 +28,10 @@ const Navbar = () => {
   const totalItems =
     cart?.items.reduce((total, item) => total + item.quantity, 0) || 0
 
+  const wishlist = useSelector((state: RootState) => state.wishlist.items)
+
+  const wishlistItems = wishlist.length
+
   return (
     <nav
       className={`fixed  top-0 left-0 w-full z-50 transition-colors duration-300
@@ -117,10 +121,15 @@ const Navbar = () => {
               className={`hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
             />
           </NavLink>
-          <NavLink to="/user/wishlist">
+          <NavLink to="/user/wishlist" className="hidden md:flex">
             <Heart
-              className={`hidden md:flex hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
-            />{' '}
+              className={` relative hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
+            />
+            {wishlistItems > 0 && (
+              <span className="hidden md:flex text-white text-xs top-0 ml-5 mt-3 font-semibold absolute rounded-full bg-[#D4A853] px-1.5">
+                {wishlistItems}
+              </span>
+            )}
           </NavLink>
 
           <NavLink to="/cart">

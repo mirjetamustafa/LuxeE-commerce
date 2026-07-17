@@ -3,7 +3,12 @@
 import { Heart, Search, User, X } from 'lucide-react'
 import { NavLink, Link } from 'react-router-dom'
 import Input from '../ui/Input'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../redux/store'
 const Sidebar = ({ toggleMobileMenu }: { toggleMobileMenu: () => void }) => {
+  const wishlist = useSelector((state: RootState) => state.wishlist.items)
+
+  const wishlistItems = wishlist.length
   return (
     <div className="bg-white pt-4 flex flex-col h-screen">
       <div className="flex justify-between items-center px-4 pb-5">
@@ -87,8 +92,15 @@ const Sidebar = ({ toggleMobileMenu }: { toggleMobileMenu: () => void }) => {
             </NavLink>
           </p>
           <NavLink to="/user/wishlist">
-            <p className="flex flex-col items-center font-semibold text-gray-600 hover:text-[#D4A853] cursor-pointer">
+            <p className="relative flex flex-col items-center font-semibold text-gray-600 hover:text-[#D4A853] cursor-pointer">
               <Heart className="w-5 h-5" />
+
+              {wishlistItems > 0 && (
+                <span className="absolute -top-1 right-0.5 text-white text-xs font-semibold rounded-full bg-[#D4A853] px-1.5">
+                  {wishlistItems}
+                </span>
+              )}
+
               <span className="text-xs">Wishlist</span>
             </p>
           </NavLink>
