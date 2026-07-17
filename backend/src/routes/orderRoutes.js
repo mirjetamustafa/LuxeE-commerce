@@ -1,8 +1,14 @@
 const express = require('express')
-const { createOrder, getOrderById } = require('../controllers/orderController')
+const {
+  createOrder,
+  getOrderById,
+  getMyOrders,
+} = require('../controllers/orderController')
 const authMiddleware = require('../middleware/authMiddleware')
 
 const router = express.Router()
+
+router.get('/my-orders', authMiddleware, getMyOrders)
 
 router.post('/', authMiddleware, createOrder)
 
