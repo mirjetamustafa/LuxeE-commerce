@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { addProductToCart } from '../../../redux/slices/cartSlice'
 import type { AppDispatch } from '../../../redux/store'
 import type React from 'react'
+import { addProductToWishlist } from '../../../redux/slices/wishlistSlice'
 
 interface Product {
   _id: string
@@ -36,6 +37,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
         quantity: 1,
       }),
     )
+  }
+
+  const handleAddToWishlist = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    dispatch(addProductToWishlist(product._id))
   }
   return (
     <div className="group overflow-hidden">
@@ -94,7 +102,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <Button variant="default" fullWidth onClick={handleAddToCart}>
               Add to Cart
             </Button>
-            <Button variant="ghost">
+            <Button onClick={handleAddToWishlist} variant="ghost">
               <Heart />
             </Button>
           </div>
