@@ -9,7 +9,7 @@ const OrderHistory = () => {
         Order History
       </h2>
       {getOrders.map((order) => (
-        <div className="border border-gray-200 p-6">
+        <div key={order._id} className="border border-gray-200 p-6">
           <>
             <div className="flex flex-col md:flex-row justify-between">
               <div className="space-y-1">
