@@ -7,6 +7,7 @@ const connectDB = require('./config/db')
 const createAdmin = require('./utils/seedAdmin')
 const cartRoutes = require('./routes/cartRoutes')
 const orderRoutes = require('./routes/orderRoutes')
+const wishlistRoutes = require('./routes/wishlistRoutes')
 
 dotenv.config()
 
@@ -29,6 +30,7 @@ app.use('/api/products', require('./routes/productRoutes'))
 app.use('/api/categories', require('./routes/categoryRoutes'))
 app.use('/api/cart', cartRoutes)
 app.use('/api/orders', orderRoutes)
+app.use('/api/wishlist', wishlistRoutes)
 
 const PORT = process.env.PORT || 5000
 
