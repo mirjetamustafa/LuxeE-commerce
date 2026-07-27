@@ -2,11 +2,13 @@ import { Link } from 'react-router-dom'
 
 import Button from '../Button'
 import { Heart, Star } from 'lucide-react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addProductToCart } from '../../../redux/slices/cartSlice'
 import type { AppDispatch } from '../../../redux/store'
 import type React from 'react'
 import { addProductToWishlist } from '../../../redux/slices/wishlistSlice'
+
+import type { RootState } from '../../../redux/store'
 
 interface Product {
   _id: string
@@ -26,6 +28,9 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const dispatch = useDispatch<AppDispatch>()
+
+  const wishlist = useSelector((state: RootState) => state.wishlist.items)
+  const isInWishlist = wishlist.some((item) => item._id === product._id)
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -103,7 +108,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
               Add to Cart
             </Button>
             <Button onClick={handleAddToWishlist} variant="ghost">
-              <Heart />
+              <Heart
+                className={
+                  isInWishlist
+                    ? 'text-[#D4A853] fill-[#D4A853]'
+                    : 'text-gray-700'
+                }
+              />
             </Button>
           </div>
         </div>
