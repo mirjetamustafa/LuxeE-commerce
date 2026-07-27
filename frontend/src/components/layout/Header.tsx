@@ -1,4 +1,4 @@
-import { Search, ShoppingCart, User, Heart, Menu } from 'lucide-react'
+import { Search, ShoppingCart, User, Heart, Menu, X } from 'lucide-react'
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import Sidebar from './Sidebar'
@@ -7,6 +7,7 @@ import type { RootState } from '../../redux/store'
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
+  const [isSearchOpen, setIsSearchOpen] = React.useState(false)
 
   const [isScrolled, setIsScrolled] = React.useState(false)
   React.useEffect(() => {
@@ -31,9 +32,11 @@ const Header = () => {
   const wishlist = useSelector((state: RootState) => state.wishlist.items)
 
   const wishlistItems = wishlist.length
+
+  console.log('HEADER RENDER')
   return (
     <nav
-      className={`fixed  top-0 left-0 py-1 w-full z-50 transition-all duration-200 
+      className={`fixed  top-0 left-0 py-4 w-full z-50 transition-all duration-200 
        ${isScrolled ? 'shadow-sm bg-white/97 ' : 'bg-transparent'} text-gray-800`}
     >
       <div className="container mx-auto px-4 py-2 flex items-center justify-between md:justify-around">
@@ -92,7 +95,37 @@ const Header = () => {
           </NavLink>
         </div>
         <div className="flex items-center space-x-9">
-          <Search className="hidden md:flex hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
+          {/* search bar */}
+          <div
+            className={`flex items-center overflow-hidden transition-all duration-300 ease-in-out ${
+              isSearchOpen
+                ? 'w-54 opacity-100 translate-x-0 mr-'
+                : 'w-0 opacity-0 translate-x-10'
+            }`}
+          >
+            <input
+              type="text"
+              placeholder="Search..."
+              autoFocus={isSearchOpen}
+              className="flex-1 outline-none border-b border-[#D4A853] py-1"
+            />
+
+            <button
+              onClick={() => setIsSearchOpen(false)}
+              className="ml-2 cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+          {!isSearchOpen && (
+            <button
+              className="hidden md:flex"
+              onClick={() => setIsSearchOpen(true)}
+            >
+              <Search className="hidden md:flex hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
+            </button>
+          )}
+
           <NavLink to="/user">
             <User className="hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
           </NavLink>
