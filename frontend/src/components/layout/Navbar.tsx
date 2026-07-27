@@ -1,26 +1,33 @@
-import { Search, ShoppingCart, User, Heart, Menu } from 'lucide-react'
-import React from 'react'
+import { Search, ShoppingCart, User, Heart, Menu, X } from 'lucide-react'
+
+import { useEffect, useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import Sidebar from './Sidebar'
-import type { RootState } from '../../redux/store'
 import { useSelector } from 'react-redux'
 
-const Navbar = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
+import Sidebar from './Sidebar'
+import type { RootState } from '../../redux/store'
 
-  const [isScrolled, setIsScrolled] = React.useState(false)
-  React.useEffect(() => {
+const Navbar = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
+
+    handleScroll()
+
     window.addEventListener('scroll', handleScroll)
+
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen)
+    setIsMobileMenuOpen((prev) => !prev)
   }
 
   const cart = useSelector((state: RootState) => state.cart.cart)
@@ -32,112 +39,190 @@ const Navbar = () => {
 
   const wishlistItems = wishlist.length
 
+  console.log('NAVBAR RENDER')
+
   return (
     <nav
-      className={`fixed  top-0 left-0 w-full z-50 transition-colors duration-300
-      ${isScrolled ? 'bg-white/90 backdrop-blur-sm shadow-md text-gray-800' : 'bg-transparent text-white'}`}
+      className={`
+      fixed top-0 left-0 w-full z-50
+      transition-colors duration-300
+      ${
+        isScrolled
+          ? 'bg-white/90 backdrop-blur-sm shadow-md text-gray-800'
+          : 'bg-transparent text-white'
+      }
+      `}
     >
-      <div className="container mx-auto px-4 py-2 flex items-center justify-between md:justify-around">
-        {/* Mobile Menu Button */}
-        <div
-          className={`hover:text-[#D4A853] cursor-pointer duration-200 mt-2 md:hidden block ${isScrolled ? 'text-gray-800' : 'text-gray-200'}`}
+      <div
+        className="
+        container mx-auto px-4 py-2
+        flex items-center justify-between
+        md:justify-around
+      "
+      >
+        {/* Mobile Menu */}
+
+        <button
+          type="button"
+          onClick={toggleMobileMenu}
+          className="
+          md:hidden cursor-pointer
+          hover:text-[#D4A853]
+          "
         >
-          <button onClick={toggleMobileMenu} className="cursor-pointer">
-            <Menu className="w-6 h-6" />
-          </button>
-        </div>
+          <Menu className={isScrolled ? 'text-gray-800' : 'text-gray-200'} />
+        </button>
+
         {/* Logo */}
+
         <div
-          className={`text-2xl font-bold font-playfair uppercase ${isScrolled ? 'text-gray-800' : 'text-gray-200'}`}
+          className={`
+          text-2xl font-bold font-playfair uppercase
+          ${isScrolled ? 'text-gray-800' : 'text-gray-200'}
+          `}
         >
           <Link to="/">
             Luxe<span className="text-[#D4A853]">.</span>
           </Link>
         </div>
+
+        {/* Desktop Links */}
+
         <div className="hidden md:flex space-x-6">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `font-medium hover:text-[#D4A853] duration-300 ${
-                isActive
-                  ? 'text-[#D4A853]'
-                  : isScrolled
-                    ? 'text-gray-600'
-                    : 'text-gray-200'
-              }`
-            }
-          >
-            Home
-          </NavLink>
-          <NavLink
-            to="/shop"
-            className={({ isActive }) =>
-              `font-medium hover:text-[#D4A853] duration-300 ${
-                isActive
-                  ? 'text-[#D4A853]'
-                  : isScrolled
-                    ? 'text-gray-600'
-                    : 'text-gray-200'
-              }`
-            }
-          >
-            Shop
-          </NavLink>
-          <NavLink
-            to="/about"
-            className={({ isActive }) =>
-              `font-medium hover:text-[#D4A853] duration-300 ${
-                isActive
-                  ? 'text-[#D4A853]'
-                  : isScrolled
-                    ? 'text-gray-600'
-                    : 'text-gray-200'
-              }`
-            }
-          >
-            About
-          </NavLink>
-          <NavLink
-            to="/contact"
-            className={({ isActive }) =>
-              `font-medium hover:text-[#D4A853] duration-300 ${
-                isActive
-                  ? 'text-[#D4A853]'
-                  : isScrolled
-                    ? 'text-gray-600'
-                    : 'text-gray-200'
-              }`
-            }
-          >
-            Contact
-          </NavLink>
+          {[
+            { name: 'Home', path: '/' },
+            { name: 'Shop', path: '/shop' },
+            { name: 'About', path: '/about' },
+            { name: 'Contact', path: '/contact' },
+          ].map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              className={({ isActive }) =>
+                `
+                font-medium hover:text-[#D4A853]
+                duration-300
+                ${
+                  isActive
+                    ? 'text-[#D4A853]'
+                    : isScrolled
+                      ? 'text-gray-600'
+                      : 'text-gray-200'
+                }
+                `
+              }
+            >
+              {item.name}
+            </NavLink>
+          ))}
         </div>
-        <div className="flex items-center space-x-9">
-          <Search
-            className={`hidden md:flex hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
-          />
+
+        {/* Icons */}
+
+        <div
+          className="
+          relative flex items-center space-x-7
+        "
+        >
+          {/* Search */}
+
+          <div className="flex items-center">
+            <div
+              className={`flex items-center overflow-hidden transition-all duration-300 ease-in-out ${
+                isSearchOpen
+                  ? 'w-64 opacity-100 translate-x-0 mr-3'
+                  : 'w-0 opacity-0 translate-x-10'
+              }`}
+            >
+              <input
+                type="text"
+                placeholder="Search..."
+                autoFocus={isSearchOpen}
+                className="flex-1 outline-none border-b border-[#D4A853] py-1 bg-transparent"
+              />
+
+              <button
+                onClick={() => setIsSearchOpen(false)}
+                className="ml-2 cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Search Icon */}
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className={`hidden md:flex transition-all duration-300 cursor-pointer ${
+                isSearchOpen ? 'opacity-0 w-0 overflow-hidden' : 'opacity-100'
+              }`}
+            >
+              <Search
+                className={`hover:text-[#D4A853] duration-300 ${
+                  isScrolled ? 'text-gray-600' : 'text-gray-200'
+                }`}
+              />
+            </button>
+          </div>
+
+          {/* User */}
+
           <NavLink to="/user">
             <User
-              className={`hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
+              className={`
+              hover:text-[#D4A853]
+              duration-300
+              ${isScrolled ? 'text-gray-600' : 'text-gray-200'}
+              `}
             />
           </NavLink>
-          <NavLink to="/user/wishlist" className="hidden md:flex">
+
+          {/* Wishlist */}
+
+          <NavLink to="/user/wishlist" className="relative hidden md:flex">
             <Heart
-              className={` relative hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
+              className={`
+              hover:text-[#D4A853]
+              duration-300
+              ${isScrolled ? 'text-gray-600' : 'text-gray-200'}
+              `}
             />
+
             {wishlistItems > 0 && (
-              <span className="hidden md:flex text-white text-xs top-0 ml-5 mt-3 font-semibold absolute rounded-full bg-[#D4A853] px-1.5">
+              <span
+                className="
+                  absolute -top-2 -right-3
+                  text-white text-xs
+                  rounded-full
+                  bg-[#D4A853]
+                  px-1.5
+                  "
+              >
                 {wishlistItems}
               </span>
             )}
           </NavLink>
 
-          <NavLink to="/cart">
+          {/* Cart */}
+
+          <NavLink to="/cart" className="relative">
             <ShoppingCart
-              className={`hover:text-[#D4A853] cursor-pointer relative duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
+              className={`
+              hover:text-[#D4A853]
+              duration-300
+              ${isScrolled ? 'text-gray-600' : 'text-gray-200'}
+              `}
             />
+
             {totalItems > 0 && (
-              <span className="text-white text-xs top-0 ml-5 mt-3 font-semibold absolute rounded-full bg-[#D4A853] px-1.5">
+              <span
+                className="
+                  absolute -top-2 -right-3
+                  text-white text-xs
+                  rounded-full
+                  bg-[#D4A853]
+                  px-1.5
+                  "
+              >
                 {totalItems}
               </span>
             )}
@@ -145,21 +230,28 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Sidebar */}
 
       <div
-        className={`fixed inset-0 z-50 md:hidden transition-opacity duration-300 ${
-          isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-        }`}
+        className={`
+        fixed inset-0 z-50 md:hidden
+        transition-opacity duration-300
+        ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}
+        `}
       >
         <div
           className="absolute inset-0 bg-black/50"
           onClick={toggleMobileMenu}
         />
+
         <div
-          className={`absolute top-0 left-0 h-screen w-64 bg-white shadow-lg transition-transform duration-300 ${
-            isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
+          className={`
+          absolute top-0 left-0
+          h-screen w-64
+          bg-white shadow-lg
+          transition-transform duration-300
+          ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
+          `}
         >
           <Sidebar toggleMobileMenu={toggleMobileMenu} />
         </div>
