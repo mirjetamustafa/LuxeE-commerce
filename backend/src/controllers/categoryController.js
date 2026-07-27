@@ -11,3 +11,21 @@ exports.createCategory = async (req, res) => {
 
   res.status(201).json(category)
 }
+
+const Product = require('../models/Product')
+
+exports.getProducts = async (req, res) => {
+  const { categories } = req.query
+
+  let filter = {}
+
+  if (categories) {
+    filter.category = {
+      $in: categories.split(','),
+    }
+  }
+
+  const products = await Product.find(filter).populate('category')
+
+  res.json(products)
+}
