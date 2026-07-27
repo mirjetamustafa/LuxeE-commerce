@@ -3,7 +3,7 @@ import clsx from 'clsx'
 
 interface CheckboxesProps {
   id: string
-  name: string
+  name?: string
   label: string
   checked: boolean
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
