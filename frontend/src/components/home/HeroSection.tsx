@@ -9,7 +9,6 @@ const HeroSection = () => {
       className="relative h-screen bg-cover bg-center"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <Navbar />
       <div className="absolute inset-0 bg-black/30 flex flex-col items-center justify-center text-center text-white p-4 z-10">
         <h6 className="text-md font-playfair text-[#D4A853] font-semibold mb-2 mt-9 uppercase">
           New collection 2026
