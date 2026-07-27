@@ -3,7 +3,46 @@ const Product = require('../models/Product')
 // GET PRODUCTS
 exports.getProducts = async (req, res) => {
   try {
-    const products = await Product.find().populate('category')
+    const { categories, maxPrice, rating, inStock, search } = req.query
+
+    let filter = {}
+
+    // Filter by multiple categories
+    if (categories) {
+      filter.category = {
+        $in: categories.split(','),
+      }
+    }
+
+    // Filter by maximum price
+    if (maxPrice) {
+      filter.price = {
+        $lte: Number(maxPrice),
+      }
+    }
+
+    // Filter by rating
+    if (rating) {
+      filter.rating = {
+        $gte: Number(rating),
+      }
+    }
+
+    // Filter only products in stock
+    if (inStock === 'true') {
+      filter.stock = {
+        $gt: 0,
+      }
+    }
+
+    if (search) {
+      filter.title = {
+        $regex: search,
+        $options: 'i',
+      }
+    }
+
+    const products = await Product.find(filter).populate('category')
 
     res.json(products)
   } catch (error) {
