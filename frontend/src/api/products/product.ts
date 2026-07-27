@@ -1,9 +1,9 @@
 import { apiRequest } from '../Api'
 import type { Product } from './product.types'
 
-export const getProducts = () =>
+export const getProducts = (params?: string) =>
   apiRequest<void, Product[]>({
-    url: '/api/products/',
+    url: `/api/products?${params ?? ''}`,
   })
 
 export const getProductById = (id: string) =>
