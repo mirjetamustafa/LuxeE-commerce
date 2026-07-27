@@ -10,6 +10,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
   isLoading?: boolean
+  onChange?: React.ChangeEventHandler<HTMLInputElement>
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -25,6 +26,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       type,
       className,
       id,
+      onChange,
       ...props
     },
     ref,
@@ -100,6 +102,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               error && 'border-red-500 focus:border-red-500 focus:ring-red-200',
               className,
             )}
+            onChange={onChange}
             {...props}
           />
 
