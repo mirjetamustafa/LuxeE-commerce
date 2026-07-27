@@ -3,10 +3,14 @@ import Input from '../ui/Input'
 import Select from '../ui/Select'
 
 import ProductCard from '../ui/cards/ProductCard'
-import { useProducts } from '../../hooks/useProducts'
+import type { Product } from '../../api/products/product.types'
 
-const Products = () => {
-  const { products } = useProducts()
+interface ProductsProps {
+  products: Product[]
+  updateSearch: (value: string) => void
+}
+
+const Products = ({ products, updateSearch }: ProductsProps) => {
   return (
     <div className="mb-8">
       <div className="flex flex-col md:flex-row justify-between border-b border-gray-200 pb-5">
@@ -22,6 +26,7 @@ const Products = () => {
               inputSize="md"
               placeholder="Search products..."
               leftIcon={<Search size={15} />}
+              onChange={(e) => updateSearch(e.target.value)}
             />
           </div>
 
