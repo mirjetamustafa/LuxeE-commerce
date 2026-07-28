@@ -85,4 +85,23 @@ const getMyOrders = async (req, res) => {
   }
 }
 
-module.exports = { createOrder, getOrderById, getMyOrders }
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find()
+      .populate('customer', 'firstName lastName email')
+      .populate('items.product')
+      .sort({ createdAt: -1 })
+
+    res.json({
+      success: true,
+      orders,
+    })
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    })
+  }
+}
+
+module.exports = { createOrder, getOrderById, getMyOrders, getAllOrders }
