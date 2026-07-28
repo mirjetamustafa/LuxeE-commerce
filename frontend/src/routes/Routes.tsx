@@ -28,6 +28,7 @@ import EditProduct from '../pages/admin/EditProduct'
 
 import AuthenticationRoute from './AuthenticationRoute'
 import OrderConfirmed from '../components/checkout/OrderConfirmed'
+import Orders from '../pages/admin/Orders'
 
 export const RouteTypes = {
   PRIVATE: 'private',
@@ -203,6 +204,10 @@ export const createRoutes = (): RouteObject[] => [
           {
             path: 'edit-product/:id',
             element: <EditProduct />,
+          },
+          {
+            path: 'orders',
+            element: <Orders />,
           },
         ],
       },
