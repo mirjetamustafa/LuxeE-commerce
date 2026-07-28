@@ -44,3 +44,8 @@ export interface CreateOrderResponse {
   message: string
   order: Order
 }
+
+export interface GetOrdersResponse {
+  success: boolean
+  orders: Order[]
+}
