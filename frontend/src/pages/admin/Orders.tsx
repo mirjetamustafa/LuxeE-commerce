@@ -36,7 +36,7 @@ const Orders = () => {
       </div>
 
       <div className="bg-white border border-slate-200 p-2 mt-15 rounded-xl">
-        <div className="flex justify-between gap-2 bg-white rounded-xl p-5 mb-9">
+        <div className="flex justify-between gap-2 bg-white rounded-xl p-5">
           <div className="w-150 mt-1">
             <Input
               variant="addProducts"
