@@ -1,6 +1,13 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import Button from '../ui/Button'
-import { CirclePlus, LayoutDashboard, Menu, Package, X } from 'lucide-react'
+import {
+  CirclePlus,
+  LayoutDashboard,
+  Menu,
+  Package,
+  ShoppingCart,
+  X,
+} from 'lucide-react'
 import { useState } from 'react'
 import { useAuth } from '../../lib/AuthContext'
 
@@ -44,6 +51,13 @@ const Sidebar = () => {
               >
                 <CirclePlus />
                 Add Product
+              </NavLink>
+              <NavLink
+                to="/admin/orders"
+                className="flex gap-2 items-center hover:bg-indigo-600 px-3 py-2 rounded-md"
+              >
+                <ShoppingCart />
+                Orders
               </NavLink>
             </nav>
           </div>
