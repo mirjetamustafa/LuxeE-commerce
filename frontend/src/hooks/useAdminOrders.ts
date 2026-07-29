@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { getAllOrders } from '../api/order/order'
-import type { Order } from '../api/order/order.types'
+import { getAllOrders, updateOrderStatus } from '../api/order/order'
+import type { Order, OrderStatus } from '../api/order/order.types'
 
 export const useAdminOrders = () => {
   const [orders, setOrders] = useState<Order[]>([])
@@ -20,6 +20,25 @@ export const useAdminOrders = () => {
     }
   }
 
+  const changeOrderStatus = async (id: string, status: OrderStatus) => {
+    try {
+      setLoading(true)
+      const response = await updateOrderStatus(id, status)
+
+      const updateOrder = response.order
+
+      setOrders((prev) =>
+        prev.map((order) => (order._id === id ? updateOrder : order)),
+      )
+      return updateOrder
+    } catch (error) {
+      console.error(error)
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
     fetchOrders()
   }, [])
@@ -28,5 +47,6 @@ export const useAdminOrders = () => {
     orders,
     loading,
     fetchOrders,
+    changeOrderStatus,
   }
 }
