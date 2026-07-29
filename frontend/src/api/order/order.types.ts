@@ -34,7 +34,7 @@ export interface Order {
   paymentMethod: PaymentMethodTypes
   items: OrderItem[]
   totalPrice: number
-  status: string
+  status: OrderStatus
   createdAt: string
   updatedAt: string
 }
@@ -49,3 +49,10 @@ export interface GetOrdersResponse {
   success: boolean
   orders: Order[]
 }
+
+export type OrderStatus =
+  | 'Pending'
+  | 'Processing'
+  | 'Shipped'
+  | 'Delivered'
+  | 'Cancelled'

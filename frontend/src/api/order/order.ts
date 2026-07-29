@@ -4,6 +4,7 @@ import type {
   CreateOrderResponse,
   GetOrdersResponse,
   Order,
+  OrderStatus,
 } from './order.types'
 
 export const createOrder = (
@@ -34,3 +35,16 @@ export const getOrderId = (id: string) =>
   apiRequest<void, Order>({
     url: `/api/orders/${id}`,
   })
+
+export const updateOrderStatus = (
+  id: string,
+  status: OrderStatus,
+): Promise<Order> => {
+  return apiRequest<{ status: OrderStatus }, { order: Order }>({
+    url: `/api/orders/${id}/status`,
+    method: 'PATCH',
+    data: {
+      status,
+    },
+  })
+}
