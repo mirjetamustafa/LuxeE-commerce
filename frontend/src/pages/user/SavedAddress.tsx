@@ -1,6 +1,9 @@
 import { Plus } from 'lucide-react'
+import { useOrder } from '../../hooks/useOrder'
 
 const SavedAddress = () => {
+  const { getOrders } = useOrder()
+  const latestOrder = getOrders[0]
   return (
     <div className="bg-white p-6 shadow-xs my-20 min-h-[500px]">
       <div className="flex justify-between">
@@ -15,20 +18,34 @@ const SavedAddress = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="flex justify-between border border-[#C09A4A] p-5">
-          <div className="">
-            <h3 className="font-medium font-playfair mb-2">Jane Doe</h3>
-            <p className="text-sm text-gray-600 mb-1">123 Design Avenue</p>
-            <p className="text-sm text-gray-600 mb-1">Apt 4B</p>
-            <p className="text-sm text-gray-600 mb-4">New York, NY 10001</p>
-            <div className="flex gap-3">
-              <button className=" cursor-pointer text-gray-800  text-sm hover:text-[#C09A4A]">
-                Edit
-              </button>
-              <button className=" cursor-pointer text-red-600  text-sm hover:text-red-700">
-                Delete
-              </button>
+          {latestOrder && (
+            <div className="">
+              <h3 className="font-medium font-playfair mb-2">
+                {latestOrder.shippingAddress.firstName}{' '}
+                {latestOrder.shippingAddress.lastName}
+              </h3>
+              <p className="text-sm text-gray-600 mb-1">
+                {latestOrder.shippingAddress.city}
+              </p>
+              <p className="text-sm text-gray-600 mb-1">
+                {latestOrder.shippingAddress.streetAddress}
+              </p>
+
+              <p className="text-sm text-gray-600 mb-4">
+                {latestOrder.shippingAddress.city},{' '}
+                {latestOrder.shippingAddress.zipCode}
+              </p>
+              <div className="flex gap-3">
+                <button className=" cursor-pointer text-gray-800  text-sm hover:text-[#C09A4A]">
+                  Edit
+                </button>
+                <button className=" cursor-pointer text-red-600  text-sm hover:text-red-700">
+                  Delete
+                </button>
+              </div>
             </div>
-          </div>
+          )}
+
           <div className="">
             <span className="text-white text-xs top-4 font-bold px-2 py-1 right-4 bg-[#D4A853] uppercase">
               default
