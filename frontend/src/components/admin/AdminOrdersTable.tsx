@@ -1,10 +1,15 @@
 import { Ellipsis, Eye } from 'lucide-react'
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { useAdminOrders } from '../../hooks/useAdminOrders'
+import OrderStatus from './OrderStatus'
+import type { Order } from '../../api/order/order.types'
 
-const AdminOrdersTable = () => {
-  const { orders } = useAdminOrders()
+interface Props {
+  orders: Order[]
+  changeOrderStatus: (id: string, status: Order['status']) => Promise<void>
+}
+
+const AdminOrdersTable = ({ orders, changeOrderStatus }: Props) => {
   const [openDropdown, setOpenDropDown] = useState<string | null>(null)
   return (
     <div>
@@ -37,11 +42,11 @@ const AdminOrdersTable = () => {
                 <div className="flex items-center gap-3 ">
                   <div className="flex flex-col">
                     <span className="font-medium text-gray-900">
-                      {order.shippingAddress.firstName}{' '}
-                      {order.shippingAddress.lastName}
+                      {order.shippingAddress?.firstName}{' '}
+                      {order.shippingAddress?.lastName}
                     </span>
                     <span className="text-xs text-gray-500">
-                      {order.shippingAddress.email}
+                      {order.shippingAddress?.email}
                     </span>
                   </div>
                 </div>
@@ -53,7 +58,12 @@ const AdminOrdersTable = () => {
               <td className="px-6 py-4">${order.totalPrice}</td>
               <td className="px-6 py-4">
                 <div className="flex gap-3 text-gray-900  transition">
-                  {order.status}
+                  <OrderStatus
+                    status={order.status}
+                    onChange={(newStatus) => {
+                      changeOrderStatus(order._id, newStatus)
+                    }}
+                  />
                 </div>
               </td>
               <td className="px-6 py-4 relative">
