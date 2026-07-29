@@ -2,8 +2,30 @@ import { Search } from 'lucide-react'
 import Input from '../../components/ui/Input'
 import Select from '../../components/ui/Select'
 import AdminOrdersTable from '../../components/admin/AdminOrdersTable'
+import { useAdminOrders } from '../../hooks/useAdminOrders'
+import { useState } from 'react'
 
 const Orders = () => {
+  const { orders, changeOrderStatus } = useAdminOrders()
+  const [statusFilter, setStatusFilter] = useState('allStatuses')
+
+  const openOrders = orders.filter(
+    (order) => order.status === 'Pending' || order.status === 'Processing',
+  ).length
+
+  const inTransit = orders.filter((order) => order.status === 'Shipped').length
+
+  const completed = orders.filter(
+    (order) => order.status === 'Delivered',
+  ).length
+
+  const filteredOrders =
+    statusFilter === 'allStatuses'
+      ? orders
+      : orders.filter(
+          (order) => order.status.toLocaleLowerCase() === statusFilter,
+        )
+
   return (
     <div className="mt-5">
       <div className="mb-9">
@@ -18,19 +40,21 @@ const Orders = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="border border-slate-200 bg-white rounded-xl shadow-xs p-5">
           <p className="text-sm font-medium  text-slate-500">Open orders</p>
-          <p className="text-2xl mt-2 font-bold  text-slate-900">4</p>
+          <p className="text-2xl mt-2 font-bold  text-slate-900">
+            {openOrders}
+          </p>
           <p className="text-xs mt-1  text-slate-500">Pending and processing</p>
         </div>
         <div className="border border-amber-200 bg-amber-50 rounded-xl shadow-xs p-5">
           <p className="text-sm font-medium  text-slate-500">In transit</p>
-          <p className="text-2xl mt-2 font-bold  text-slate-900">2</p>
+          <p className="text-2xl mt-2 font-bold  text-slate-900">{inTransit}</p>
           <p className="text-xs mt-1  text-slate-500">
             Shipped, awaiting delivery
           </p>
         </div>
         <div className="border border-emerald-200 bg-emerald-50 rounded-xl shadow-xs p-5">
           <p className="text-sm font-medium  text-slate-500">Completed</p>
-          <p className="text-2xl mt-2 font-bold  text-slate-900">3</p>
+          <p className="text-2xl mt-2 font-bold  text-slate-900">{completed}</p>
           <p className="text-xs mt-1  text-slate-500">Delivered to customers</p>
         </div>
       </div>
@@ -62,21 +86,23 @@ const Orders = () => {
             <Select
               label=""
               name=""
-              value=""
+              value={statusFilter}
               options={[
                 { value: 'allStatuses', label: 'All statuses' },
                 { value: 'pending', label: 'Pending' },
                 { value: 'processing', label: 'Processing' },
-
                 { value: 'shipped', label: 'Shipped' },
                 { value: 'delivered', label: 'Delivered' },
                 { value: 'cancelled', label: 'Cancelled' },
               ]}
-              onChange={(value) => console.log(value)}
+              onChange={(value) => setStatusFilter(value)}
             />
           </div>
         </div>
-        <AdminOrdersTable />
+        <AdminOrdersTable
+          orders={filteredOrders}
+          changeOrderStatus={changeOrderStatus}
+        />
       </div>
     </div>
   )
