@@ -11,7 +11,7 @@ interface SelectProps {
   name: string
   value: string
   options: Option[]
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  onChange: (value: string) => void
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -31,7 +31,7 @@ const Select: React.FC<SelectProps> = ({
         name={name}
         value={value}
         className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-[#D4A853] focus:border-[#D4A853]"
-        onChange={onChange}
+        onChange={(e) => onChange(e.target.value)}
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
