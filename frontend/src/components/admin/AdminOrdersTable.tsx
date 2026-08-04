@@ -31,7 +31,7 @@ const AdminOrdersTable = ({ orders, changeOrderStatus }: Props) => {
             <tr key={order._id} className="bg-white group hover:bg-gray-50">
               <td className="px-6 py-4 text-gray-600">
                 <NavLink
-                  to={''}
+                  to={`/admin/orders/${order._id}`}
                   className="text-indigo-700 hover:underline hover:text-indigo-800"
                 >
                   {' '}
@@ -80,7 +80,7 @@ const AdminOrdersTable = ({ orders, changeOrderStatus }: Props) => {
                 {openDropdown === order._id && (
                   <div className="absolute right-12 w-35 rounded-md border border-slate-200 bg-white shadow-lg z-10">
                     <NavLink
-                      to={`/orders/${order._id}`}
+                      to={`/admin/orders/${order._id}`}
                       className="block px-4 py-2 hover:bg-gray-100 text-sm"
                     >
                       <div className="flex items-center gap-2">
