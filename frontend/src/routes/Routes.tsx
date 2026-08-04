@@ -29,6 +29,7 @@ import EditProduct from '../pages/admin/EditProduct'
 import AuthenticationRoute from './AuthenticationRoute'
 import OrderConfirmed from '../components/checkout/OrderConfirmed'
 import Orders from '../pages/admin/Orders'
+import ProductOrderDetails from '../pages/admin/ProductOrderDetails'
 
 export const RouteTypes = {
   PRIVATE: 'private',
@@ -208,6 +209,10 @@ export const createRoutes = (): RouteObject[] => [
           {
             path: 'orders',
             element: <Orders />,
+          },
+          {
+            path: '/admin/orders/:id',
+            element: <ProductOrderDetails />,
           },
         ],
       },
