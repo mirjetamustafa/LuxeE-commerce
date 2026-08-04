@@ -6,6 +6,12 @@ const generateOrderNumber = () => {
   return `LUXE-${random}`
 }
 
+const generateTrackingNumber = () => {
+  const random = Math.random().toString(36).substring(2, 10).toUpperCase()
+
+  return `TRK-${random}`
+}
+
 const createOrder = async (req, res) => {
   try {
     const { shippingAddress, paymentMethod, items, totalPrice } = req.body
@@ -118,6 +124,10 @@ const updateOrderStatus = async (req, res) => {
     }
 
     order.status = status
+
+    if (status === 'Shipped' && !order.trackingNumber) {
+      order.trackingNumber = generateTrackingNumber()
+    }
 
     await order.save()
 
