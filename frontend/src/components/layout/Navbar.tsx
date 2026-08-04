@@ -126,7 +126,7 @@ const Navbar = () => {
               className={` relative hover:text-[#D4A853] cursor-pointer duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
             />
             {wishlistItems > 0 && (
-              <span className="hidden md:flex text-white text-xs top-0 ml-5 mt-3 font-semibold absolute rounded-full bg-[#D4A853] px-1.5">
+              <span className="hidden md:flex text-white text-xs top-0 ml-4 mt-2 font-semibold absolute rounded-full bg-[#D4A853] px-1.5">
                 {wishlistItems}
               </span>
             )}
@@ -137,7 +137,7 @@ const Navbar = () => {
               className={`hover:text-[#D4A853] cursor-pointer relative duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-200'}`}
             />
             {totalItems > 0 && (
-              <span className="text-white text-xs top-0 ml-5 mt-3 font-semibold absolute rounded-full bg-[#D4A853] px-1.5">
+              <span className="text-white text-xs top-0 ml-5 mt-1 font-semibold absolute rounded-full bg-[#D4A853] px-1.5">
                 {totalItems}
               </span>
             )}

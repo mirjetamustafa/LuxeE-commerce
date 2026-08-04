@@ -132,7 +132,7 @@ const Header = () => {
           <NavLink to="/user/wishlist" className="hidden md:flex">
             <Heart className=" relative hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600" />
             {wishlistItems > 0 && (
-              <span className="text-white text-xs top-0 ml-5 mt-3 font-semibold absolute rounded-full bg-[#D4A853] px-1.5">
+              <span className="text-white text-xs top-0 ml-4 mt-6 font-semibold absolute rounded-full bg-[#D4A853] px-1.5">
                 {wishlistItems}
               </span>
             )}
@@ -140,7 +140,7 @@ const Header = () => {
           <NavLink to="/cart" className="flex">
             <ShoppingCart className="hover:text-[#D4A853] cursor-pointer duration-300 text-gray-600 relative" />
             {totalItems > 0 && (
-              <span className="text-white text-xs top-0 ml-5 mt-3 font-semibold absolute rounded-full bg-[#D4A853] px-1.5">
+              <span className="text-white text-xs top-0 ml-5 mt-5 font-semibold absolute rounded-full bg-[#D4A853] px-1.5">
                 {totalItems}
               </span>
             )}
