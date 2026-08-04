@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { Order } from '../api/order/order.types'
 import { getOrderId } from '../api/order/order'
 
@@ -6,19 +6,24 @@ const useOrderDetails = (id: string) => {
   const [order, setOrder] = useState<Order | null>(null)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    const fetchOrder = async () => {
-      try {
-        const response = await getOrderId(id)
+  const refreshOrder = useCallback(async () => {
+    if (!id) return
 
-        setOrder(response.order)
-      } finally {
-        setLoading(false)
-      }
+    try {
+      setLoading(true)
+      const response = await getOrderId(id)
+      setOrder(response.order)
+    } catch (error) {
+      console.error('Error refreshing order:', error)
+    } finally {
+      setLoading(false)
     }
-    fetchOrder()
   }, [id])
-  return { order, loading }
+
+  useEffect(() => {
+    refreshOrder()
+  }, [refreshOrder])
+  return { order, loading, refreshOrder, setOrder }
 }
 
 export default useOrderDetails
