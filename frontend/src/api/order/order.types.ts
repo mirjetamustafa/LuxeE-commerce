@@ -35,6 +35,7 @@ export interface Order {
   items: OrderItem[]
   totalPrice: number
   status: OrderStatus
+  trackingNumber?: string | null
   createdAt: string
   updatedAt: string
 }
