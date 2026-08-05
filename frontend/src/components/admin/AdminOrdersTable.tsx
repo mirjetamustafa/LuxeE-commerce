@@ -1,8 +1,8 @@
 import { Ellipsis, Eye } from 'lucide-react'
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import OrderStatus from './OrderStatus'
 import type { Order } from '../../api/order/order.types'
+import OrderStatus from './OrderStatus'
 
 interface Props {
   orders: Order[]
@@ -55,7 +55,7 @@ const AdminOrdersTable = ({ orders, changeOrderStatus }: Props) => {
               <td className="px-6 py-4 text-gray-900">Jun 24, 2026</td>
 
               <td className="px-6 py-4">{order.items.length} items</td>
-              <td className="px-6 py-4">${order.totalPrice}</td>
+              <td className="px-6 py-4">${order.totalPrice.toFixed(2)}</td>
               <td className="px-6 py-4">
                 <div className="flex gap-3 text-gray-900  transition">
                   <OrderStatus
