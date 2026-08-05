@@ -88,7 +88,7 @@ const orderSchema = new mongoose.Schema(
     trackingNumber: {
       type: String,
       unique: true,
-      default: null,
+      sparse: true,
     },
   },
   {
