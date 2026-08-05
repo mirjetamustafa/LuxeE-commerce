@@ -74,7 +74,12 @@ const ProductOrderDetails = () => {
         </div>
       </div>
       <p className="text-sm text-slate-500">
-        {order.createdAt} · {order.items.length} items · {order.status}
+        {new Date(order.createdAt).toLocaleDateString('en-US', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+        })}{' '}
+        · {order.items.length} items · {order.status}
       </p>
 
       <div className="border-t border-slate-200 mt-5"></div>
@@ -91,23 +96,59 @@ const ProductOrderDetails = () => {
             </div>
 
             <div className="flex gap-3 mt-4">
-              <div className="">
-                <div className="text-green-700 bg-green-100 rounded-full p-1 mt-0.5">
-                  <CircleCheck className="w-4 h-4" />
+              {order.status === 'Cancelled' ? (
+                <div>
+                  <div className="text-red-700 bg-red-100 rounded-full p-1 mt-0.5">
+                    <CircleCheck className="w-4 h-4" />
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div>
+                  <div className="text-green-700 bg-green-100 rounded-full p-1 mt-0.5">
+                    <CircleCheck className="w-4 h-4" />
+                  </div>
+                </div>
+              )}
               <div className="">
                 <h6 className="font-semibold">{order.status} order</h6>
-                <p className="text-slate-500 text-sm">
-                  Delivered to the customer
-                </p>
-                {order.trackingNumber && (
-                  <div className="flex gap-1 text-indigo-600 hover:text-indigo-700 cursor-pointer mt-3">
-                    <Copy className="w-4 h-4" />
-                    <p className="text-sm font-medium">
-                      {order.trackingNumber}
+                {order.status === 'Delivered' && (
+                  <>
+                    <p className="text-slate-500 text-sm">
+                      Delivered to the customer
                     </p>
-                  </div>
+                    {order.trackingNumber && (
+                      <div className="flex gap-1 text-indigo-600 hover:text-indigo-700 cursor-pointer mt-3">
+                        <Copy className="w-4 h-4" />
+                        <p className="text-sm font-medium">
+                          {order.trackingNumber}
+                        </p>
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {(order.status === 'Pending' ||
+                  order.status === 'Processing' ||
+                  order.status === 'Cancelled') && (
+                  <p className="text-slate-500 text-sm">
+                    Ready for the next fulfillment step.
+                  </p>
+                )}
+
+                {order.status === 'Shipped' && (
+                  <>
+                    <p className="text-slate-500 text-sm">
+                      The package is in transit.
+                    </p>
+                    {order.trackingNumber && (
+                      <div className="flex gap-1 text-indigo-600 hover:text-indigo-700 cursor-pointer mt-3">
+                        <Copy className="w-4 h-4" />
+                        <p className="text-sm font-medium">
+                          {order.trackingNumber}
+                        </p>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             </div>
