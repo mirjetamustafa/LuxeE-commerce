@@ -33,6 +33,7 @@ const createOrder = async (req, res) => {
       order,
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({
       success: false,
       message: error.message,
@@ -44,7 +45,7 @@ const getOrderById = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id)
       .populate('items.product')
-      .populate('customer', 'firstName lastName email')
+      .populate('customer', 'firstName lastName email createdAt')
 
     if (!order) {
       return res.status(404).json({
@@ -54,7 +55,7 @@ const getOrderById = async (req, res) => {
     }
 
     // kontrollo qe orderi i takon userit
-    if (order.customer._id.toString() !== req.user.id) {
+    if (!req.user.isAdmin && order.customer._id.toString() !== req.user.id) {
       return res.status(403).json({
         success: false,
         message: 'Not authorized',
@@ -94,7 +95,7 @@ const getMyOrders = async (req, res) => {
 const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find()
-      .populate('customer', 'firstName lastName email')
+      .populate('customer', 'firstName lastName email createdAt')
       .populate('items.product')
       .sort({ createdAt: -1 })
 
