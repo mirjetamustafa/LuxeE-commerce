@@ -52,7 +52,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   }
   return (
     <div className="group overflow-hidden">
-      <Link to={product.link ?? '/'} className="block overflow-hidden">
+      <Link to={`/product/${product._id}`} className="block overflow-hidden">
         <div className="relative h-90 w-full overflow-hidden">
           {/* Foto kryesore */}
           <img
