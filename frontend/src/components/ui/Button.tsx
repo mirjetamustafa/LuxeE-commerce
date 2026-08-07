@@ -13,6 +13,8 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
     | 'delete'
     | 'next'
     | 'logout'
+    | 'wishlist'
+
   size?: 'small' | 'medium' | 'large'
   fullWidth?: boolean
   icon?: React.ReactNode
@@ -47,6 +49,8 @@ const Button = ({
     'text-gray-600 hover:bg-gray-100 border border-gray-200 rounded-md px-2 py-1':
       variant === 'next',
     'bg-white text-red-600 hover:bg-red-50 shadow-xs': variant === 'logout',
+    'bg-white text-gray-900 border border-gray-200 hover:border-gray-900 shadow-xs':
+      variant === 'wishlist',
   })
 
   const sizeClasses = clsx({
