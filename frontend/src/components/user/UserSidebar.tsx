@@ -4,19 +4,19 @@ import Button from '../ui/Button'
 import { useAuth } from '../../lib/AuthContext'
 
 const UserSidebar = () => {
-  const { logout } = useAuth()
+  const { logout, user } = useAuth()
   return (
     <div className="my-20">
       <div className="w-110 md:w-64 bg-white text-white p-5 mb-6 shadow-xs">
         <div className="flex items-center gap-2 mb-6">
           <div className="flex items-center justify-center bg-[#D4A853] w-10 h-10 rounded-full">
-            M
+            {user?.name?.charAt(0).toUpperCase()}
           </div>
           <div className="">
             <h2 className="text-gray-800 font-semibold font-playfair">
-              John Doe
+              {user?.name}
             </h2>
-            <p className="text-xs text-gray-800">john.doe@example.com</p>
+            <p className="text-xs text-gray-800">{user?.email}</p>
           </div>
         </div>
         <div className="flex flex-col gap-3 mt-9">
