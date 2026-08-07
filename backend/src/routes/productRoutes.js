@@ -7,10 +7,12 @@ const {
   getProducts,
   deleteProduct,
   updateProduct,
+  getProductById,
 } = require('../controllers/productController')
 
 // GET all products
 router.get('/', getProducts)
+router.get('/:id', getProductById) // Get product by ID
 
 // CREATE product with images
 router.post(
