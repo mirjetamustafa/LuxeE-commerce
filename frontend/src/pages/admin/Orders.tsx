@@ -8,6 +8,8 @@ import { useState } from 'react'
 const Orders = () => {
   const { orders, changeOrderStatus } = useAdminOrders()
   const [statusFilter, setStatusFilter] = useState('allStatuses')
+  const [search, setSearch] = useState('')
+  const [dataFilter, setDataFilter] = useState('allTime')
 
   const openOrders = orders.filter(
     (order) => order.status === 'Pending' || order.status === 'Processing',
@@ -19,12 +21,41 @@ const Orders = () => {
     (order) => order.status === 'Delivered',
   ).length
 
-  const filteredOrders =
-    statusFilter === 'allStatuses'
-      ? orders
-      : orders.filter(
-          (order) => order.status.toLocaleLowerCase() === statusFilter,
-        )
+  const filteredOrders = orders.filter((order) => {
+    const searchValue = search.toLocaleLowerCase().trim()
+    const matchesSearch =
+      order.orderNumber.toLocaleLowerCase().includes(searchValue) ||
+      order.shippingAddress.firstName
+        .toLocaleLowerCase()
+        .includes(searchValue) ||
+      order.shippingAddress.lastName
+        .toLocaleLowerCase()
+        .includes(searchValue) ||
+      order.shippingAddress.email.toLocaleLowerCase().includes(searchValue)
+
+    const matchesStatus =
+      statusFilter === 'allStatuses' ||
+      order.status.toLocaleLowerCase() === statusFilter
+
+    const orderDate = new Date(order.createdAt)
+    const now = new Date()
+
+    let matchesDate = true
+
+    if (dataFilter === 'last-30-days') {
+      const thirtyDaysAgo = new Date()
+      thirtyDaysAgo.setDate(now.getDate() - 30)
+
+      matchesDate = orderDate >= thirtyDaysAgo
+    }
+
+    if (dataFilter === 'thisMonth') {
+      matchesDate =
+        orderDate.getMonth() === now.getMonth() &&
+        orderDate.getFullYear() === now.getFullYear()
+    }
+    return matchesSearch && matchesStatus && matchesDate
+  })
 
   return (
     <div className="mt-5">
@@ -67,20 +98,21 @@ const Orders = () => {
               inputSize="sm"
               placeholder="Search order, customer, or email..."
               leftIcon={<Search size={18} />}
+              onChange={(e) => setSearch(e.target.value)}
             />
           </div>
           <div className="flex gap-2 ">
             <Select
               label=""
               name=""
-              value=""
+              value={dataFilter}
               options={[
                 { value: 'last-30-days', label: 'Last 30 days' },
                 { value: 'last-7-days', label: 'Last 7 days' },
                 { value: 'thisMonth', label: 'This Month' },
                 { value: 'allTime', label: 'All time' },
               ]}
-              onChange={(value) => console.log(value)}
+              onChange={(value) => setDataFilter(value)}
             />
 
             <Select
