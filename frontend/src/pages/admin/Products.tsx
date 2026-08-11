@@ -5,11 +5,34 @@ import Input from '../../components/ui/Input'
 import Select from '../../components/ui/Select'
 import { useProducts } from '../../hooks/useProducts'
 import { useNavigate } from 'react-router-dom'
+import { useMemo, useState } from 'react'
+import { useCategories } from '../../hooks/useCategories'
 
 const Products = () => {
-  const { products, loading, handlDelete } = useProducts()
+  const [search, setSearch] = useState('')
+  const [status, setStatus] = useState('all')
+  const [category, setCategory] = useState('all')
 
+  const { products, loading, handlDelete } = useProducts()
+  const { categories } = useCategories()
   const navigate = useNavigate()
+
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) => {
+      const matchesSearch =
+        product.title
+          .toLocaleLowerCase()
+          .includes(search.toLocaleLowerCase()) ||
+        product.sku.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+
+      const matchesStatus = status === 'all' || product.status === status
+
+      const matchesCategory =
+        category === 'all' || product.category?._id === category
+
+      return matchesSearch && matchesStatus && matchesCategory
+    })
+  }, [products, search, status, category])
 
   if (loading) {
     return <p className="p-5">Loading products...</p>
@@ -39,6 +62,8 @@ const Products = () => {
             variant="addProducts"
             placeholder="Search products by name or SKU..."
             leftIcon={<Search size={18} />}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <div className="flex gap-2 ">
@@ -49,21 +74,19 @@ const Products = () => {
               { value: 'active', label: 'Active' },
               { value: 'draft', label: 'Draft' },
             ]}
-            onChange={(value) => console.log(value)}
+            onChange={(value) => setStatus(value)}
           />
 
           <Select
             label=""
             options={[
               { value: 'all', label: 'All' },
-              { value: 'electronics', label: 'Electronics' },
-              { value: 'clothing', label: 'Clothing' },
-
-              { value: 'health&beauty', label: 'Health & Beauty' },
-              { value: 'home&living', label: 'Home & Living' },
-              { value: 'accessories', label: 'Accessories' },
+              ...categories.map((category) => ({
+                value: category._id,
+                label: category.name,
+              })),
             ]}
-            onChange={(value) => console.log(value)}
+            onChange={(value) => setCategory(value)}
           />
         </div>
       </div>
@@ -82,7 +105,7 @@ const Products = () => {
           </thead>
 
           <tbody className="divide-y divide-gray-100">
-            {products.map((prod) => (
+            {filteredProducts.map((prod) => (
               <tr key={prod._id} className="bg-white group hover:bg-gray-50">
                 <td className="px-6 py-4  last:rounded-b-3xl">
                   <div className="flex items-center gap-3 ">
@@ -145,7 +168,7 @@ const Products = () => {
         </table>
         <div className="flex justify-between px-5 py-3 border border-gray-200">
           <p className="text-sm text-gray-500">
-            Showing {products.length} products
+            Showing {filteredProducts.length} products
           </p>
           <div className="flex gap-2">
             <Button variant="next" size="small">
