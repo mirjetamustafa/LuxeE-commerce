@@ -3,13 +3,14 @@ const dotenv = require('dotenv')
 const cors = require('cors')
 const path = require('path')
 
+dotenv.config()
+
 const connectDB = require('./config/db')
 const createAdmin = require('./utils/seedAdmin')
 const cartRoutes = require('./routes/cartRoutes')
 const orderRoutes = require('./routes/orderRoutes')
 const wishlistRoutes = require('./routes/wishlistRoutes')
-
-dotenv.config()
+const checkoutRoutes = require('./routes/checkoutRoutes')
 
 const app = express()
 
@@ -31,6 +32,7 @@ app.use('/api/categories', require('./routes/categoryRoutes'))
 app.use('/api/cart', cartRoutes)
 app.use('/api/orders', orderRoutes)
 app.use('/api/wishlist', wishlistRoutes)
+app.use('/api/checkout', checkoutRoutes)
 
 const PORT = process.env.PORT || 5000
 
