@@ -36,6 +36,12 @@ export const getOrderId = (id: string) =>
     url: `/api/orders/${id}`,
   })
 
+export const getOrderByStripeSession = (sessionId: string) =>
+  apiRequest<void, { success: boolean; order: Order }>({
+    url: `/api/orders/stripe-session/${sessionId}`,
+    method: 'GET',
+  })
+
 export const updateOrderStatus = (
   id: string,
   status: OrderStatus,
