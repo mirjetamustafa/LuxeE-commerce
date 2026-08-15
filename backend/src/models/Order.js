@@ -57,6 +57,18 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
 
+    paymentStatus: {
+      type: String,
+      enum: ['Pending', 'Paid', 'Failed'],
+      default: 'Pending',
+    },
+
+    stripeSessionId: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
+
     items: [
       {
         product: {
