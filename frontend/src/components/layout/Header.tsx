@@ -33,7 +33,6 @@ const Header = () => {
 
   const wishlistItems = wishlist.length
 
-  console.log('HEADER RENDER')
   return (
     <nav
       className={`fixed  top-0 left-0 py-4 w-full z-50 transition-all duration-200 
