@@ -28,7 +28,7 @@ const OrderConfirmed = () => {
         </p>
 
         <p className="mb-6 text-sm">
-          A confirmation emai has been sent to <br />{' '}
+          A confirmation email has been sent to <br />{' '}
           {order?.shippingAddress.email}
         </p>
 
