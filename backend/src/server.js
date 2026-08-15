@@ -15,6 +15,9 @@ const checkoutRoutes = require('./routes/checkoutRoutes')
 const app = express()
 
 app.use(cors())
+
+app.use('/api/checkout/webhook', express.raw({ type: 'application/json' }))
+
 app.use(express.json())
 
 // serve static uploads
