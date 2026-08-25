@@ -40,6 +40,10 @@ const Checkout = () => {
 
   // STEP 1: CASH ON DELIVERY
   const handlePlaceOrder = async () => {
+    if (!paymentMethod) {
+      toast.error('Please select a payment method')
+      return
+    }
     try {
       const orderData = {
         shippingAddress,

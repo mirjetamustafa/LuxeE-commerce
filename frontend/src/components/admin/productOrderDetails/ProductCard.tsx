@@ -14,40 +14,48 @@ const ProductCard = ({ order }: Props) => {
 
       <div className=" border-b border-slate-200 my-2"></div>
 
-      {order.items.map((item, index) => (
-        <div
-          key={item.product._id}
-          className={
-            index !== order.items.length - 1 ? 'border-b border-slate-200' : ''
-          }
-        >
-          <div className="flex justify-between items-center px-6 py-3 ">
-            <div className="flex items-center gap-3">
-              <img
-                src={`${import.meta.env.VITE_SERVER_URL}${item.product.image}`}
-                alt={item.product.title}
-                className="w-16 h-16 object-cover rounded-md"
-              />
+      {order.items.map((item, index) => {
+        if (typeof item.product === 'string') {
+          return null
+        }
+
+        const product = item.product
+
+        return (
+          <div
+            key={product._id}
+            className={
+              index !== order.items.length - 1
+                ? 'border-b border-slate-200'
+                : ''
+            }
+          >
+            <div className="flex justify-between items-center px-6 py-3">
+              <div className="flex items-center gap-3">
+                <img
+                  src={`${import.meta.env.VITE_SERVER_URL}${product.image}`}
+                  alt={product.title}
+                  className="w-16 h-16 object-cover rounded-md"
+                />
+
+                <div className="flex flex-col">
+                  <h5 className="text-lg font-medium">{product.title}</h5>
+
+                  <p className="text-xs text-slate-500">SKU: {product.sku}</p>
+
+                  <p className="text-sm text-gray-500">
+                    Quantity: {item.quantity}
+                  </p>
+                </div>
+              </div>
 
               <div className="flex flex-col">
-                <h5 className="text-lg font-medium">{item.product.title}</h5>
-
-                <p className="text-xs text-slate-500">
-                  SKU: {item.product.sku}
-                </p>
-
-                <p className="text-sm text-gray-500">
-                  Quantity: {item.quantity}
-                </p>
+                <p className="font-semibold">${item.price}</p>
               </div>
             </div>
-
-            <div className="flex flex-col">
-              <p className="font-semibold">${item.price}</p>
-            </div>
           </div>
-        </div>
-      ))}
+        )
+      })}
 
       <div className="ml-auto max-w-sm border-t border-slate-200 py-3 px-6 text-sm">
         <div className="space-y-5">

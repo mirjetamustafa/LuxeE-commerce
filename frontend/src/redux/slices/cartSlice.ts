@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, isRejected } from '@reduxjs/toolkit'
 import {
   addToCart as addToCartApi,
   getCart as getCartApi,
@@ -112,13 +112,10 @@ const cartSlice = createSlice({
           state.cart.items = []
         }
       })
-      .addMatcher(
-        (action) => action.type.endsWith('/rejected'),
-        (state, action) => {
-          state.loading = false
-          state.error = action.error.message || 'Somethnig went wrong'
-        },
-      )
+      .addMatcher(isRejected, (state, action) => {
+        state.loading = false
+        state.error = action.error?.message || 'Something went wrong'
+      })
   },
 })
 

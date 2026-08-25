@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, isRejected } from '@reduxjs/toolkit'
 import type { Product } from '../../api/products/product.types'
 import {
   addToWishlist,
@@ -71,13 +71,10 @@ const wishlistSlice = createSlice({
         },
       )
 
-      .addMatcher(
-        (action) => action.type.endsWith('/rejected'),
-        (state, action) => {
-          state.loading = false
-          state.error = action.error.message || 'Something went wrong'
-        },
-      )
+      .addMatcher(isRejected, (state, action) => {
+        state.loading = false
+        state.error = action.error?.message || 'Something went wrong'
+      })
   },
 })
 
