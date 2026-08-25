@@ -56,7 +56,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <div className="relative h-90 w-full overflow-hidden">
           {/* Foto kryesore */}
           <img
-            src={`http://localhost:5000${product.image}`}
+            src={`${import.meta.env.VITE_SERVER_URL}${product.image}`}
             alt={product.title}
             className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
           />

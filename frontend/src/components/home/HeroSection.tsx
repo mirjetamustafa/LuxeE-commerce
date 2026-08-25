@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import bgImage from '../../assets/images/bg.jfif'
-import Navbar from '../layout/Navbar'
 import Button from '../ui/Button'
 
 const HeroSection = () => {

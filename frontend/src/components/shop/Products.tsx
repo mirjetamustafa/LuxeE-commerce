@@ -32,6 +32,8 @@ const Products = ({ products, updateSearch }: ProductsProps) => {
 
           <Select
             label=""
+            name=""
+            value=""
             options={[
               { value: 'featured', label: 'Featured' },
               { value: 'newestArrivals', label: 'Newest Arrivals' },

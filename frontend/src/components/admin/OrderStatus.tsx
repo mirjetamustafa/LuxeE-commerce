@@ -23,7 +23,7 @@ const statusStyles = {
   Cancelled: 'bg-red-100 text-red-700',
 }
 
-const OrderStatus = ({ status, onChange }: Props) => {
+const OrderStatusDropdown = ({ status, onChange }: Props) => {
   const [open, setOpen] = useState(false)
 
   return (
@@ -59,4 +59,4 @@ const OrderStatus = ({ status, onChange }: Props) => {
   )
 }
 
-export default OrderStatus
+export default OrderStatusDropdown

@@ -24,7 +24,7 @@ const ProductCard = ({ order }: Props) => {
           <div className="flex justify-between items-center px-6 py-3 ">
             <div className="flex items-center gap-3">
               <img
-                src={`http://localhost:5000${item.product.image}`}
+                src={`${import.meta.env.VITE_SERVER_URL}${item.product.image}`}
                 alt={item.product.title}
                 className="w-16 h-16 object-cover rounded-md"
               />

@@ -32,8 +32,9 @@ export const getAllOrders = (): Promise<GetOrdersResponse> => {
 }
 
 export const getOrderId = (id: string) =>
-  apiRequest<void, Order>({
+  apiRequest<void, { success: boolean; order: Order }>({
     url: `/api/orders/${id}`,
+    method: 'GET',
   })
 
 export const getOrderByStripeSession = (sessionId: string) =>
@@ -45,7 +46,7 @@ export const getOrderByStripeSession = (sessionId: string) =>
 export const updateOrderStatus = (
   id: string,
   status: OrderStatus,
-): Promise<Order> => {
+): Promise<{ order: Order }> => {
   return apiRequest<{ status: OrderStatus }, { order: Order }>({
     url: `/api/orders/${id}/status`,
     method: 'PATCH',

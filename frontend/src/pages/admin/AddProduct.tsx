@@ -8,7 +8,7 @@ import Checkboxes from '../../components/ui/Checkboxes'
 
 const AddProduct = () => {
   const { categories } = useCategories()
-  const { handleSubmit, handleChange, form, handleFileChange, editProduct } =
+  const { handleSubmit, handleChange, form, handleFileChange } =
     useCreateProduct()
   return (
     <div className="max-w-5xl mx-auto flex gap-7 w-full">
@@ -96,7 +96,7 @@ const AddProduct = () => {
                   { value: 'draft', label: 'Draft' },
                 ]}
                 value={form.status}
-                onChange={handleChange}
+                onChange={() => handleChange}
               />
             </div>
 
@@ -105,7 +105,7 @@ const AddProduct = () => {
                 label="Category"
                 name="category"
                 value={form.category}
-                onChange={handleChange}
+                onChange={() => handleChange}
                 options={categories.map((c) => ({
                   value: c._id,
                   label: c.name,

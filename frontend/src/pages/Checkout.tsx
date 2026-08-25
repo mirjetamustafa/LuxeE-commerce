@@ -34,7 +34,9 @@ const Checkout = () => {
     zipCode: '',
   })
 
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethodTypes>('')
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethodTypes | ''>(
+    '',
+  )
 
   // STEP 1: CASH ON DELIVERY
   const handlePlaceOrder = async () => {

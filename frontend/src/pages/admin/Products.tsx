@@ -69,6 +69,8 @@ const Products = () => {
         <div className="flex gap-2 ">
           <Select
             label=""
+            name=""
+            value=""
             options={[
               { value: 'all', label: 'All' },
               { value: 'active', label: 'Active' },
@@ -79,6 +81,8 @@ const Products = () => {
 
           <Select
             label=""
+            name=""
+            value=""
             options={[
               { value: 'all', label: 'All' },
               ...categories.map((category) => ({
@@ -111,7 +115,7 @@ const Products = () => {
                   <div className="flex items-center gap-3 ">
                     <div className="w-10 h-10 flex items-center justify-center">
                       <img
-                        src={`http://localhost:5000${prod.image}`}
+                        src={`${import.meta.env.VITE_SERVER_URL}${prod.image}`}
                         alt=""
                         className="rounded-sm"
                       />
