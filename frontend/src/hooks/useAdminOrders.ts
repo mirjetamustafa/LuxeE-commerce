@@ -20,7 +20,10 @@ export const useAdminOrders = () => {
     }
   }
 
-  const changeOrderStatus = async (id: string, status: OrderStatus) => {
+  const changeOrderStatus = async (
+    id: string,
+    status: OrderStatus,
+  ): Promise<void> => {
     try {
       setLoading(true)
       const response = await updateOrderStatus(id, status)
@@ -30,7 +33,7 @@ export const useAdminOrders = () => {
       setOrders((prev) =>
         prev.map((order) => (order._id === id ? updateOrder : order)),
       )
-      return updateOrder
+      // return updateOrder
     } catch (error) {
       console.error(error)
       throw error

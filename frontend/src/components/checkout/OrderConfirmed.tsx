@@ -12,6 +12,8 @@ const OrderConfirmed = () => {
     return <p>Loadng...</p>
   }
 
+  if (!order) return <div>Order not found</div>
+
   return (
     <div className="pt-24 pb-20 bg-[#F9F9F9] flex items-center justify-center">
       <div className="bg-white shadow-lg p-12 w-120 text-center">
@@ -24,7 +26,7 @@ const OrderConfirmed = () => {
         <p className="mb-2">Thank you for your purchase</p>
         <p className="mb-6 text-sm">
           Order Number:{' '}
-          <span className="font-bold text-xs">{order.orderNumber} </span>
+          <span className="font-bold text-xs">{order?.orderNumber} </span>
         </p>
 
         <p className="mb-6 text-sm">

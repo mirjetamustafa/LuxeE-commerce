@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getProducts } from '../api/products/product'
+import type { Product } from '../api/products/product.types'
 
 interface Filters {
   categories: string[]
@@ -18,7 +19,7 @@ const useProductFilters = () => {
     inStock: false,
   })
 
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState<Product[]>([])
 
   const updateCategories = (categoryId: string) => {
     setFilters((prev) => ({

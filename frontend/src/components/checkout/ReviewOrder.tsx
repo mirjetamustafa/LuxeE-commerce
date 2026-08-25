@@ -1,11 +1,15 @@
-import type { OrderItem, ShippingAddress } from '../../api/order/order.types'
+import type {
+  OrderItem,
+  PaymentMethodTypes,
+  ShippingAddress,
+} from '../../api/order/order.types'
 
 import Button from '../ui/Button'
 
 interface ReviewOrderProps {
   setStep: (step: number) => void
   shippingAddress: ShippingAddress | null
-  paymentMethod: string
+  paymentMethod: PaymentMethodTypes | ''
   items: OrderItem[]
   totalPrice: number
   handlePayment: () => void

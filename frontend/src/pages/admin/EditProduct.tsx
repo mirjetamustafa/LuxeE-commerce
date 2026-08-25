@@ -109,7 +109,7 @@ const EditProduct = () => {
                   { value: 'draft', label: 'Draft' },
                 ]}
                 value={form.status}
-                onChange={handleChange}
+                onChange={() => handleChange}
               />
             </div>
 
@@ -118,7 +118,7 @@ const EditProduct = () => {
                 label="Category"
                 name="category"
                 value={form.category}
-                onChange={handleChange}
+                onChange={() => handleChange}
                 options={categories.map((c) => ({
                   value: c._id,
                   label: c.name,

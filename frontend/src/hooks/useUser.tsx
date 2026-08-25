@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 
 import type { LoginInput } from '../api/User/user.types'
 import { useAuth } from '../lib/AuthContext'
+import type { AxiosError } from 'axios'
 
 const initialFormLogin: LoginInput = {
   email: '',
@@ -40,8 +41,8 @@ export const useUser = () => {
         navigate('/user')
       }
     } catch (error) {
-      console.error(error)
-      toast.error(error?.response?.data?.message || 'Login failed')
+      const err = error as AxiosError<{ message?: string }>
+      toast.error(err?.response?.data?.message || 'Login failed')
     }
   }
 

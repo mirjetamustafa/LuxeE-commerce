@@ -9,7 +9,7 @@ export const useCategories = () => {
     const fetchCategories = async () => {
       try {
         const res = await getCategory()
-        setCategories(res.data || res || [])
+        setCategories(res)
       } catch (error) {
         console.error('Error fetching categories:', error)
         setCategories([])

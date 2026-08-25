@@ -20,7 +20,7 @@ const ThumbnailImage = ({ product }: ThumbnailImagesProps) => {
           {images.map((img) => (
             <img
               key={img}
-              src={`http://localhost:5000${img}`}
+              src={`${import.meta.env.VITE_SERVER_URL}${img}`}
               alt={product.title}
               className={`w-30 h-30 object-cover cursor-pointer border-2 ${selectedImage === img ? 'border-[#D4A853]' : 'border-transparent'}`}
               onClick={() => setSelectedImage(img)}
@@ -33,8 +33,8 @@ const ThumbnailImage = ({ product }: ThumbnailImagesProps) => {
           <img
             src={
               selectedImage
-                ? `http://localhost:5000${selectedImage}`
-                : `http://localhost:5000${images[0]}`
+                ? `${import.meta.env.VITE_SERVER_URL}${selectedImage}`
+                : `${import.meta.env.VITE_SERVER_URL}${images[0]}`
             }
             alt={product.title}
             className="w-full h-[500px] object-cover object-center"

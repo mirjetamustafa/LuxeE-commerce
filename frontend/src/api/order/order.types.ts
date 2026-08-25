@@ -12,7 +12,7 @@ export interface ShippingAddress {
 }
 
 export interface OrderItem {
-  product: Product
+  product: string | Product
   name: string
   quantity: number
   price: number

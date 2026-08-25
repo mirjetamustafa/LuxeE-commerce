@@ -5,7 +5,7 @@ import type { PaymentMethodTypes } from '../../api/order/order.types'
 
 interface PaymentMethodProps {
   setStep: (step: number) => void
-  paymentMethod: PaymentMethodTypes
+  paymentMethod: PaymentMethodTypes | ''
   setPaymentMethod: (method: PaymentMethodTypes) => void
 }
 

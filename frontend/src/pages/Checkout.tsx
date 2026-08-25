@@ -63,9 +63,7 @@ const Checkout = () => {
   // STEP 2: STRIPE CHECKOUT
   const handleCheckout = async () => {
     try {
-      const response = await createCheckoutSession({
-        shippingAddress,
-      })
+      const response = await createCheckoutSession(shippingAddress)
 
       window.location.href = response.url
     } catch (error) {

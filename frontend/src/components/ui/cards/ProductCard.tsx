@@ -76,7 +76,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
           {/* Foto hover */}
           <img
-            src={`http://localhost:5000${product.hoverImage ?? product.image}`}
+            src={`${import.meta.env.VITE_SERVER_URL}${product.hoverImage ?? product.image}`}
             alt={product.title}
             className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           />

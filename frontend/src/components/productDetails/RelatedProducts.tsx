@@ -25,7 +25,7 @@ const RelatedProducts = ({ product, products }: RelatedProductProps) => {
               className="group relative block w-full h-80 overflow-hidden cursor-pointer"
             >
               <img
-                src={`http://localhost:5000${item.image}`}
+                src={`${import.meta.env.VITE_SERVER_URL}${item.image}`}
                 alt={item.title}
                 className="w-full h-full object-cover transition duration-300 group-hover:scale-105"
               />

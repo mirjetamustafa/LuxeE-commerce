@@ -46,7 +46,7 @@ const Cart = () => {
                   {cart?.items.map((item) => (
                     <CartItem
                       key={item.product._id}
-                      image={`http://localhost:5000${item.product.image}`}
+                      image={`${import.meta.env.VITE_SERVER_URL}${item.product.image}`}
                       title={item.product.title}
                       category={item.product.category?.name}
                       price={item.product.price}
