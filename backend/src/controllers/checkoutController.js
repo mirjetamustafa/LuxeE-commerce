@@ -161,8 +161,6 @@ const handleStripeWebhook = async (req, res) => {
 
         const shippingAddress = JSON.parse(shippingAddressData)
 
-        console.log('Webhook shipping address:', shippingAddress)
-
         // Check if order already exists
         const existingOrder = await Order.findOne({
           stripeSessionId: session.id,
@@ -181,7 +179,10 @@ const handleStripeWebhook = async (req, res) => {
         if (!cart || cart.items.length === 0) {
           console.log('Cart not found or empty')
 
-          break
+          return res.status(400).json({
+            success: false,
+            message: 'cart not found or empty',
+          })
         }
 
         const items = cart.items.map((item) => ({
