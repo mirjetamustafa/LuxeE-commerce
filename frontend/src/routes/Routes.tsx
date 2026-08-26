@@ -115,6 +115,16 @@ export const createRoutes = (): RouteObject[] => [
           </>
         ),
       },
+      {
+        path: '/checkout/success',
+        element: (
+          <>
+            <Header />
+            <CheckoutSuccess />
+            <Footer />
+          </>
+        ),
+      },
     ],
   },
 
@@ -152,16 +162,7 @@ export const createRoutes = (): RouteObject[] => [
           </>
         ),
       },
-      {
-        path: '/checkout/success',
-        element: (
-          <>
-            <Header />
-            <CheckoutSuccess />
-            <Footer />
-          </>
-        ),
-      },
+
       {
         path: '/user',
         element: (
